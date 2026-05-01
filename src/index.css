@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --color-nexu-teal:        #1a6b55;
+  --color-nexu-teal-dark:   #145443;
+  --color-nexu-teal-light:  #22806a;
+  --color-nexu-orange:      #f0a500;
+  --color-nexu-orange-dark: #d99400;
+  --font-family-sans: "Inter", system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-family-sans);
+  -webkit-font-smoothing: antialiased;
+  background: #fff;
+}
+
+/* Suprimir iconos de autocompletado de Chrome/Edge dentro de inputs */
+::-webkit-contacts-auto-fill-button,
+::-webkit-credentials-auto-fill-button {
+  visibility: hidden !important;
+  display: none !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+input::-webkit-textfield-decoration-container { display: none !important; }
+
+/* Evitar estilos de autofill que cambien colores */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+  -webkit-text-fill-color: #111827 !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Scrollbar custom */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 99px; }
