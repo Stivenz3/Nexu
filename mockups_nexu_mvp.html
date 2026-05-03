@@ -1,0 +1,2069 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexu — Mockups MVP</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+  :root {
+    --primary: #0F766E;
+    --primary-dark: #0B5E58;
+    --primary-light: #14B8A6;
+    --primary-bg: #F0FDFA;
+    --secondary: #F59E0B;
+    --secondary-light: #FCD34D;
+    --secondary-bg: #FEF3C7;
+    --success: #10B981;
+    --error: #EF4444;
+    --warning: #FBBF24;
+    --text: #1C1917;
+    --text-muted: #57534E;
+    --text-light: #78716C;
+    --border: #E7E5E4;
+    --bg: #FAFAF9;
+    --white: #FFFFFF;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow: 0 4px 12px rgba(0,0,0,0.06);
+    --shadow-lg: 0 12px 32px rgba(0,0,0,0.08);
+  }
+
+  body {
+    background: linear-gradient(135deg, #F0FDFA 0%, #FAFAF9 50%, #FEF3C7 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 32px 16px 80px;
+    color: var(--text);
+  }
+
+  /* === HEADER GLOBAL === */
+  .doc-header {
+    max-width: 1200px;
+    margin: 0 auto 48px;
+    text-align: center;
+    padding: 32px 24px;
+    background: var(--white);
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+  }
+  .doc-header .brand {
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -1.5px;
+    margin-bottom: 8px;
+  }
+  .doc-header .brand span { color: var(--secondary); }
+  .doc-header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .doc-header p {
+    color: var(--text-muted);
+    font-size: 14px;
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  .doc-header .meta {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .doc-header .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--primary-bg);
+    border-radius: 999px;
+    color: var(--primary);
+    font-weight: 500;
+  }
+
+  /* === SECCIÓN DE PANTALLAS === */
+  .screens-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 64px;
+  }
+
+  .screen-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .screen-info {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--primary);
+  }
+  .screen-info .num {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--secondary);
+    background: var(--secondary-bg);
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .screen-info h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .screen-info p {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .screen-info .hu-tag {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--primary);
+    background: var(--primary-bg);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-right: 6px;
+    margin-bottom: 4px;
+  }
+
+  /* === DEVICES === */
+  .devices {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: start;
+    justify-items: center;
+  }
+  @media (min-width: 900px) {
+    .devices { grid-template-columns: 1fr 1.5fr; }
+    .screen-section { grid-template-columns: 320px 1fr; gap: 32px; }
+  }
+
+  .device-label {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  /* === MOBILE FRAME === */
+  .mobile {
+    width: 320px;
+    height: 640px;
+    background: #1C1917;
+    border-radius: 36px;
+    padding: 8px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+  }
+  .mobile-screen {
+    width: 100%;
+    height: 100%;
+    background: var(--white);
+    border-radius: 28px;
+    overflow: hidden;
+    overflow-y: auto;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+  }
+  .mobile-screen::-webkit-scrollbar { width: 0; }
+  .mobile-notch {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 6px;
+    background: #1C1917;
+    border-radius: 3px;
+    z-index: 100;
+    pointer-events: none;
+  }
+
+  /* === DESKTOP FRAME === */
+  .desktop {
+    width: 100%;
+    max-width: 720px;
+    background: #1C1917;
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: var(--shadow-lg);
+  }
+  .desktop-bar {
+    display: flex;
+    gap: 6px;
+    padding: 6px 8px;
+  }
+  .desktop-bar span {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #57534E;
+  }
+  .desktop-bar span:nth-child(1) { background: #EF4444; }
+  .desktop-bar span:nth-child(2) { background: #F59E0B; }
+  .desktop-bar span:nth-child(3) { background: #10B981; }
+  .desktop-screen {
+    background: var(--white);
+    border-radius: 6px;
+    overflow: hidden;
+    height: 460px;
+    overflow-y: auto;
+  }
+  .desktop-screen::-webkit-scrollbar { width: 8px; }
+  .desktop-screen::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  /* === COMPONENTES INTERNOS DE PANTALLAS === */
+  .app-bar {
+    background: var(--white);
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .app-bar.dark {
+    background: var(--primary);
+    color: var(--white);
+    border-bottom: none;
+  }
+  .app-bar .logo {
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--primary);
+    letter-spacing: -0.5px;
+  }
+  .app-bar.dark .logo { color: var(--white); }
+  .app-bar .logo span { color: var(--secondary); }
+  .icon-btn {
+    width: 32px;
+    height: 32px;
+    background: var(--bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--text-muted);
+    border: none;
+    cursor: pointer;
+  }
+  .app-bar.dark .icon-btn {
+    background: rgba(255,255,255,0.15);
+    color: var(--white);
+  }
+
+  .content-area {
+    padding: 24px 20px;
+  }
+  .content-area.tight { padding: 16px 20px; }
+
+  h3.screen-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  p.screen-sub {
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  /* === BOTONES === */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    width: 100%;
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(15, 118, 110, 0.25);
+  }
+  .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    background: var(--secondary);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--primary);
+    border: 1.5px solid var(--primary);
+  }
+  .btn-soft {
+    background: var(--primary-bg);
+    color: var(--primary);
+  }
+  .btn-sm { padding: 8px 14px; font-size: 13px; width: auto; }
+
+  /* === INPUTS === */
+  .field { margin-bottom: 14px; }
+  .field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .field input, .field select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--white);
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .field input:focus { outline: none; border-color: var(--primary); }
+  .field-icon {
+    position: relative;
+  }
+  .field-icon input { padding-left: 40px; }
+  .field-icon .icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 16px;
+  }
+
+  /* === CARDS === */
+  .card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    margin-bottom: 12px;
+    transition: all 0.2s;
+  }
+  .card.interactive { cursor: pointer; }
+  .card.interactive:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow); }
+
+  .lesson-card {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .lesson-card .num-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--primary-bg);
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .lesson-card.locked .num-badge {
+    background: var(--bg);
+    color: var(--text-light);
+  }
+  .lesson-card.completed .num-badge {
+    background: var(--success);
+    color: var(--white);
+  }
+  .lesson-card .title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .lesson-card .meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .lesson-card .meta .dot { width: 3px; height: 3px; background: var(--text-muted); border-radius: 50%; }
+  .lesson-card.locked .title, .lesson-card.locked .meta { color: var(--text-light); }
+  .lesson-card .status-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 6px;
+  }
+  .status-tag.disponible { background: var(--secondary-bg); color: #B45309; }
+  .status-tag.bloqueada { background: var(--bg); color: var(--text-light); }
+  .status-tag.completada { background: #D1FAE5; color: #065F46; }
+
+  /* === LECCIÓN === */
+  .progress-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .progress-bar .fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+
+  .section-counter {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .illustration {
+    background: linear-gradient(135deg, #F0FDFA 0%, #FEF3C7 100%);
+    height: 140px;
+    border-radius: 14px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+  }
+
+  .lesson-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  .key-concept {
+    background: var(--primary-bg);
+    border-left: 3px solid var(--primary);
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  .key-concept .label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .key-concept p {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* === PREGUNTA === */
+  .question-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 20px;
+    border: 2px solid var(--primary);
+    margin-bottom: 16px;
+  }
+  .question-card .label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .question-card .question {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+  .option {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--white);
+  }
+  .option:hover { border-color: var(--primary); background: var(--primary-bg); }
+  .option.selected { border-color: var(--primary); background: var(--primary-bg); }
+  .option.correct { border-color: var(--success); background: #ECFDF5; }
+  .option.incorrect { border-color: var(--error); background: #FEF2F2; }
+  .option .letter {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+  .option.correct .letter { background: var(--success); color: var(--white); }
+  .option .text { font-size: 13px; color: var(--text); }
+
+  /* === PANTALLA PUENTE === */
+  .bridge-content {
+    text-align: center;
+    padding: 32px 24px;
+  }
+  .bridge-emoji {
+    font-size: 80px;
+    margin-bottom: 16px;
+  }
+  .bridge-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .bridge-text {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .objective-list {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: left;
+    margin-bottom: 24px;
+  }
+  .objective-list .label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .objective-list ul { list-style: none; padding: 0; }
+  .objective-list li {
+    padding: 6px 0;
+    font-size: 13px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .objective-list li::before {
+    content: "→";
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  /* === HUD DEL JUEGO === */
+  .game-hud {
+    background: linear-gradient(135deg, #1C1917 0%, #292524 100%);
+    color: var(--white);
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .game-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 30% 70%, rgba(15, 118, 110, 0.2) 0%, transparent 50%);
+  }
+  .hud-overlay {
+    position: relative;
+    z-index: 1;
+    padding: 16px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .hud-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .hud-card {
+    background: rgba(28, 25, 23, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 10px 12px;
+    color: var(--white);
+  }
+  .hud-card .lbl {
+    font-size: 9px;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+  .hud-card .val {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .hud-card .val.amber { color: var(--secondary-light); }
+  .hud-card .val.green { color: #6EE7B7; }
+  .hud-bottom {
+    text-align: center;
+  }
+  .hud-action {
+    background: rgba(245, 158, 11, 0.9);
+    color: var(--white);
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    backdrop-filter: blur(8px);
+  }
+  .hud-objectives {
+    background: rgba(28, 25, 23, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 12px;
+    text-align: left;
+    margin-bottom: 12px;
+  }
+  .hud-objectives .lbl {
+    font-size: 10px;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .hud-objectives ul { list-style: none; padding: 0; }
+  .hud-objectives li {
+    font-size: 12px;
+    padding: 4px 0;
+    color: rgba(255,255,255,0.9);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hud-objectives li.done {
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+  .hud-objectives li::before {
+    content: "○";
+    color: var(--secondary-light);
+    flex-shrink: 0;
+  }
+  .hud-objectives li.done::before {
+    content: "✓";
+    color: #6EE7B7;
+  }
+
+  /* === RESULTADOS === */
+  .result-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: conic-gradient(var(--success) 0% 85%, var(--border) 85% 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    position: relative;
+  }
+  .result-circle::after {
+    content: "";
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    background: var(--white);
+    border-radius: 50%;
+  }
+  .result-circle .number {
+    position: relative;
+    z-index: 1;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--success);
+  }
+  .result-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .result-stat:last-child { border-bottom: none; }
+  .result-stat .lbl { color: var(--text-muted); }
+  .result-stat .val { font-weight: 700; color: var(--text); }
+  .result-stat .val.green { color: var(--success); }
+  .result-stat .val.red { color: var(--error); }
+
+  /* === CERTIFICADO === */
+  .certificate {
+    background: linear-gradient(135deg, #FFFFFF 0%, #F0FDFA 100%);
+    border: 3px double var(--primary);
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+    margin-bottom: 16px;
+  }
+  .certificate .seal {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 50px;
+    height: 50px;
+    background: var(--secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 22px;
+    box-shadow: var(--shadow);
+  }
+  .certificate .cert-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .certificate .cert-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .certificate .cert-subtitle {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .certificate .cert-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 8px 0 12px;
+    font-family: 'Inter', cursive;
+    border-bottom: 1px solid var(--primary);
+    padding-bottom: 8px;
+  }
+  .certificate .cert-detail {
+    font-size: 11px;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .qr-code {
+    width: 90px;
+    height: 90px;
+    background:
+      linear-gradient(45deg, transparent 30%, var(--text) 30%, var(--text) 35%, transparent 35%, transparent 45%, var(--text) 45%, var(--text) 50%, transparent 50%),
+      linear-gradient(-45deg, transparent 30%, var(--text) 30%, var(--text) 35%, transparent 35%, transparent 45%, var(--text) 45%, var(--text) 50%, transparent 50%),
+      linear-gradient(90deg, var(--text) 50%, transparent 50%) 0 0/8px 8px,
+      linear-gradient(0deg, var(--text) 50%, transparent 50%) 0 0/8px 8px,
+      var(--white);
+    margin: 0 auto;
+    border: 2px solid var(--text);
+    border-radius: 4px;
+    position: relative;
+  }
+  .qr-code::before, .qr-code::after, .qr-real::before {
+    content: "";
+    position: absolute;
+    width: 18px; height: 18px;
+    border: 3px solid var(--text);
+    background: var(--white);
+  }
+  .qr-code::before { top: 4px; left: 4px; }
+  .qr-code::after { top: 4px; right: 4px; }
+
+  /* QR más realista usando un patrón */
+  .qr-real {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    background-image:
+      radial-gradient(circle at 15% 15%, var(--text) 6%, transparent 7%),
+      radial-gradient(circle at 85% 15%, var(--text) 6%, transparent 7%),
+      radial-gradient(circle at 15% 85%, var(--text) 6%, transparent 7%),
+      linear-gradient(0deg, transparent 48%, var(--text) 48%, var(--text) 52%, transparent 52%) 0 0/6px 6px,
+      linear-gradient(90deg, transparent 48%, var(--text) 48%, var(--text) 52%, transparent 52%) 0 0/6px 6px;
+    background-color: var(--white);
+    border: 2px solid var(--text);
+    border-radius: 6px;
+    position: relative;
+  }
+
+  /* === VERIFICACIÓN PÚBLICA === */
+  .verify-status {
+    background: var(--success);
+    color: var(--white);
+    padding: 20px;
+    border-radius: 14px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .verify-status .icon-big {
+    font-size: 48px;
+    margin-bottom: 8px;
+  }
+  .verify-status .status-text {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .verify-status .status-sub {
+    font-size: 12px;
+    opacity: 0.9;
+  }
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-row .lbl { color: var(--text-muted); }
+  .info-row .val { font-weight: 600; color: var(--text); }
+
+  /* === EVALUACIÓN === */
+  .eval-progress {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+  }
+  .eval-progress .step {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+  }
+  .eval-progress .step.done { background: var(--success); }
+  .eval-progress .step.current { background: var(--primary); }
+  .timer {
+    background: var(--secondary-bg);
+    color: #B45309;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  /* === DESKTOP-SPECIFIC ADJUSTMENTS === */
+  .desktop-screen .content-area { padding: 32px 40px; }
+  .desktop-screen .app-bar { padding: 14px 32px; }
+
+  .desktop-form-wrap {
+    max-width: 380px;
+    margin: 0 auto;
+    padding: 32px 16px;
+  }
+
+  /* === FOOTER === */
+  .doc-footer {
+    max-width: 1200px;
+    margin: 64px auto 0;
+    padding: 24px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  /* === Splash branding === */
+  .splash {
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .splash::before {
+    content: "";
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 200px; height: 200px;
+    background: var(--secondary);
+    border-radius: 50%;
+    opacity: 0.15;
+  }
+  .splash::after {
+    content: "";
+    position: absolute;
+    bottom: -30px; left: -30px;
+    width: 150px; height: 150px;
+    background: var(--secondary);
+    border-radius: 50%;
+    opacity: 0.1;
+  }
+  .splash-logo {
+    font-size: 72px;
+    font-weight: 800;
+    letter-spacing: -3px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .splash-logo span { color: var(--secondary-light); }
+  .splash-tag {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 1;
+  }
+  .splash-cta {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 240px;
+  }
+
+  /* === iconos simples (emojis para velocidad) === */
+  .ico { font-size: 16px; line-height: 1; }
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<div class="doc-header">
+  <div class="brand">Ne<span>x</span>u</div>
+  <h1>Mockups del MVP — Iteración 1</h1>
+  <p>Pantallas del flujo principal: registro, primera lección de higiene personal, nivel del videojuego, evaluación final, certificado digital y verificación pública por QR.</p>
+  <div class="meta">
+    <div class="meta-item">📱 Mobile-first</div>
+    <div class="meta-item">🖥️ Desktop responsive</div>
+    <div class="meta-item">🎨 Paleta Nexu (verde + ámbar)</div>
+    <div class="meta-item">✅ 13 HU del MVP</div>
+  </div>
+</div>
+
+<div class="screens-grid">
+
+  <!-- ========== SCREEN 1: SPLASH / BIENVENIDA ========== -->
+  <div class="screen-section">
+    <div class="screen-info">
+      <span class="num">PANTALLA 01</span>
+      <h2>Splash de bienvenida</h2>
+      <p>Primera pantalla al abrir la aplicación. Refuerza la identidad de marca y direcciona al login o registro según el estado del usuario.</p>
+      <span class="hu-tag">Identidad de marca</span>
+      <span class="hu-tag">Onboarding</span>
+    </div>
+    <div class="devices">
+      <div>
+        <div class="device-label">Móvil (manipulador)</div>
+        <div class="mobile">
+          <div class="mobile-notch"></div>
+          <div class="mobile-screen">
+            <div class="splash">
+              <div class="splash-logo">Ne<span>x</span>u</div>
+              <div class="splash-tag">Tu certificación BPM, sin filas ni vueltas.</div>
+              <div class="splash-cta">
+                <button class="btn btn-secondary" style="margin-bottom:10px">Crear cuenta</button>
+                <button class="btn btn-ghost" style="background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.5); color:var(--white)">Ya tengo cuenta</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="device-label">Desktop (admin de empresa)</div>
+        <div class="desktop">
+          <div class="desktop-bar"><span></span><span></span><span></span></div>
+          <div class="desktop-screen">
+            <div class="splash">
+              <div class="splash-logo">Ne<span>x</span>u</div>
+              <div class="splash-tag">Tu certificación BPM, sin filas ni vueltas.</div>
+              <div class="splash-cta" style="display:flex; gap:12px; max-width:400px;">
+                <button class="btn btn-secondary">Crear cuenta</button>
+                <button class="btn btn-ghost" style="background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.5); color:var(--white)">Iniciar sesión</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCREEN 2: REGISTRO ========== -->
+  <div class="screen-section">
+    <div class="screen-info">
+      <span class="num">PANTALLA 02</span>
+      <h2>Registro de manipulador</h2>
+      <p>Formulario de registro inicial. Pide datos básicos y obliga a aceptar política de tratamiento de datos antes de continuar.</p>
+      <span class="hu-tag">HU-01</span>
+      <span class="hu-tag">HU-36</span>
+    </div>
+    <div class="devices">
+      <div>
+        <div class="device-label">Móvil</div>
+        <div class="mobile">
+          <div class="mobile-notch"></div>
+          <div class="mobile-screen">
+            <div class="app-bar">
+              <button class="icon-btn">←</button>
+              <div class="logo">Ne<span>x</span>u</div>
+              <div style="width:32px"></div>
+            </div>
+            <div class="content-area">
+              <h3 class="screen-title">Crear cuenta</h3>
+              <p class="screen-sub">Te toma 2 minutos y empiezas a aprender.</p>
+              <div class="field">
+                <label>Nombre completo</label>
+                <div class="field-icon">
+                  <span class="icon">👤</span>
+                  <input type="text" placeholder="Laura Gómez">
+                </div>
+              </div>
+              <div class="field">
+                <label>Documento</label>
+                <div class="field-icon">
+                  <span class="icon">🪪</span>
+                  <input type="text" placeholder="Cédula 1.234.567.890">
+                </div>
+              </div>
+              <div class="field">
+                <label>Correo electrónico</label>
+                <div class="field-icon">
+                  <span class="icon">✉️</span>
+                  <input type="email" placeholder="laura@correo.com">
+                </div>
+              </div>
+              <div class="field">
+                <label>Contraseña</label>
+                <div class="field-icon">
+                  <span class="icon">🔒</span>
+                  <input type="password" placeholder="Mínimo 8 caracteres">
+                </div>
+              </div>
+              <label style="display:flex; gap:8px; align-items:flex-start; font-size:12px; color:var(--text-muted); margin:14px 0 18px; line-height:1.5;">
+                <input type="checkbox" checked style="margin-top:3px;">
+                <span>Acepto la <a href="#" style="color:var(--primary); font-weight:600;">política de tratamiento de datos</a> (Ley 1581 de 2012).</span>
+              </label>
+              <button class="btn btn-primary">Crear mi cuenta</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="device-label">Desktop</div>
+        <div class="desktop">
+          <div class="desktop-bar"><span></span><span></span><span></span></div>
+          <div class="desktop-screen">
+            <div class="app-bar">
+              <div class="logo">Ne<span>x</span>u</div>
+              <button class="btn btn-soft btn-sm">¿Ya tienes cuenta?</button>
+            </div>
+            <div class="desktop-form-wrap">
+              <h3 class="screen-title">Crear cuenta</h3>
+              <p class="screen-sub">Te toma 2 minutos y empiezas a aprender.</p>
+              <div class="field">
+                <label>Nombre completo</label>
+                <div class="field-icon">
+                  <span class="icon">👤</span>
+                  <input type="text" placeholder="Laura Gómez">
+                </div>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div class="field">
+                  <label>Tipo doc.</label>
+                  <select><option>Cédula</option><option>Pasaporte</option></select>
+                </div>
+                <div class="field">
+                  <label>Número</label>
+                  <input type="text" placeholder="1234567890">
+                </div>
+              </div>
+              <div class="field">
+                <label>Correo</label>
+                <input type="email" placeholder="laura@correo.com">
+              </div>
+              <div class="field">
+                <label>Contraseña</label>
+                <input type="password" placeholder="Mínimo 8 caracteres">
+              </div>
+              <label style="display:flex; gap:8px; font-size:12px; color:var(--text-muted); margin:14px 0; line-height:1.5;">
+                <input type="checkbox" checked>
+                <span>Acepto la política de tratamiento de datos.</span>
+              </label>
+              <button class="btn btn-primary">Crear cuenta</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCREEN 3: LOGIN ========== -->
+  <div class="screen-section">
+    <div class="screen-info">
+      <span class="num">PANTALLA 03</span>
+      <h2>Inicio de sesión</h2>
+      <p>Login con correo y contraseña. Después de 3 intentos fallidos bloquea por 15 minutos.</p>
+      <span class="hu-tag">HU-03</span>
+      <span class="hu-tag">HU-04</span>
+    </div>
+    <div class="devices">
+      <div>
+        <div class="device-label">Móvil</div>
+        <div class="mobile">
+          <div class="mobile-notch"></div>
+          <div class="mobile-screen">
+            <div class="app-bar">
+              <button class="icon-btn">←</button>
+              <div class="logo">Ne<span>x</span>u</div>
+              <div style="width:32px"></div>
+            </div>
+            <div class="content-area" style="padding-top:40px;">
+              <h3 class="screen-title">¡Bienvenido de nuevo!</h3>
+              <p class="screen-sub">Continúa tu certificación donde la dejaste.</p>
+              <div class="field">
+                <label>Correo</label>
+                <div class="field-icon">
+                  <span class="icon">✉️</span>
+                  <input type="email" placeholder="laura@correo.com">
+                </div>
+              </div>
+              <div class="field">
+                <label>Contraseña</label>
+                <div class="field-icon">
+                  <span class="icon">🔒</span>
+                  <input type="password" placeholder="••••••••">
+                </div>
+              </div>
+              <a href="#" style="font-size:12px; color:var(--primary); font-weight:600; display:block; text-align:right; margin-bottom:20px;">¿Olvidaste tu contraseña?</a>
+              <button class="btn btn-primary">Entrar</button>
+              <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-top:20px;">¿Primera vez? <a href="#" style="color:var(--primary); font-weight:600;">Crea una cuenta</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="device-label">Desktop</div>
+        <div class="desktop">
+          <div class="desktop-bar"><span></span><span></span><span></span></div>
+          <div class="desktop-screen">
+            <div class="app-bar">
+              <div class="logo">Ne<span>x</span>u</div>
+              <button class="btn btn-soft btn-sm">Crear cuenta</button>
+            </div>
+            <div class="desktop-form-wrap">
+              <h3 class="screen-title">¡Bienvenido de nuevo!</h3>
+              <p class="screen-sub">Continúa donde la dejaste.</p>
+              <div class="field">
+                <label>Correo</label>
+                <input type="email" placeholder="laura@correo.com">
+              </div>
+              <div class="field">
+                <label>Contraseña</label>
+                <input type="password" placeholder="••••••••">
+              </div>
+              <a href="#" style="font-size:12px; color:var(--primary); font-weight:600; display:block; text-align:right; margin-bottom:20px;">¿Olvidaste tu contraseña?</a>
+              <button class="btn btn-primary">Entrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCREEN 4: CATÁLOGO ========== -->
+  <div class="screen-section">
+    <div class="screen-info">
+      <span class="num">PANTALLA 04</span>
+      <h2>Catálogo de lecciones</h2>
+      <p>Ruta de aprendizaje. La primera lección está disponible; las demás bloqueadas hasta aprobar las anteriores. Muestra estado y duración estimada.</p>
+      <span class="hu-tag">HU-07</span>
+    </div>
+    <div class="devices">
+      <div>
+        <div class="device-label">Móvil</div>
+        <div class="mobile">
+          <div class="mobile-notch"></div>
+          <div class="mobile-screen">
+            <div class="app-bar">
+              <button class="icon-btn">☰</button>
+              <div class="logo">Ne<span>x</span>u</div>
+              <button class="icon-btn">🔔</button>
+            </div>
+            <div class="content-area tight">
+              <p style="font-size:12px; color:var(--secondary); font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">¡Hola, Laura!</p>
+              <h3 class="screen-title" style="font-size:18px;">Tu ruta de certificación BPM</h3>
+              <p class="screen-sub" style="margin-bottom:16px;">5 lecciones • 1 hora total estimada</p>
+
+              <div class="card interactive" style="border-color: var(--primary); background: linear-gradient(135deg, var(--primary-bg) 0%, white 100%);">
+                <div class="lesson-card">
+                  <div class="num-badge">1</div>
+                  <div style="flex:1;">
+                    <div class="title">Higiene personal del manipulador</div>
+                    <div class="meta">⏱️ 12 min<span class="dot"></span>4 secciones</div>
+                    <span class="status-tag disponible">▶ Empezar ahora</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card lesson-card locked">
+                <div class="num-badge">2</div>
+                <div style="flex:1;">
+                  <div class="title">Manipulación de alimentos crudos</div>
+                  <div class="meta">⏱️ 14 min<span class="dot"></span>🔒 Bloqueada</div>
+                </div>
+              </div>
+
+              <div class="card lesson-card locked">
+                <div class="num-badge">3</div>
+                <div style="flex:1;">
+                  <div class="title">Control de temperaturas</div>
+                  <div class="meta">⏱️ 10 min<span class="dot"></span>🔒 Bloqueada</div>
+                </div>
+              </div>
+
+              <div class="card lesson-card locked">
+                <div class="num-badge">4</div>
+                <div style="flex:1;">
+                  <div class="title">Limpieza y desinfección</div>
+                  <div class="meta">⏱️ 12 min<span class="dot"></span>🔒 Bloqueada</div>
+                </div>
+              </div>
+
+              <div class="card lesson-card locked">
+                <div class="num-badge">5</div>
+                <div style="flex:1;">
+                  <div class="title">Evaluación final + Certificado</div>
+                  <div class="meta">⏱️ 15 min<span class="dot"></span>🔒 Bloqueada</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="device-label">Desktop</div>
+        <div class="desktop">
+          <div class="desktop-bar"><span></span><span></span><span></span></div>
+          <div class="desktop-screen">
+            <div class="app-bar">
+              <div class="logo">Ne<span>x</span>u</div>
+              <div style="display:flex; gap:12px; align-items:center;">
+                <button class="icon-btn">🔔</button>
+                <div style="width:32px; height:32px; background:var(--primary-bg); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:var(--primary); font-size:13px;">L</div>
+              </div>
+            </div>
+            <div class="content-area">
+              <p style="font-size:12px; color:var(--secondary); font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">¡Hola, Laura!</p>
+              <h3 class="screen-title">Tu ruta de certificación BPM</h3>
+              <p class="screen-sub">5 lecciones • 1 hora total estimada</p>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div class="card interactive" style="border-color: var(--primary); background: linear-gradient(135deg, var(--primary-bg) 0%, white 100%);">
+                  <div class="lesson-card">
+                    <div class="num-badge">1</div>
+                    <div style="flex:1;">
+                      <div class="title">Higiene personal del manipulador</div>
+                      <div class="meta">⏱️ 12 min</div>
+                      <span class="status-tag disponible">▶ Empezar</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card lesson-card locked">
+                  <div class="num-badge">2</div>
+                  <div style="flex:1;">
+                    <div class="title">Manipulación de crudos</div>
+                    <div class="meta">⏱️ 14 min<span class="dot"></span>🔒</div>
+                  </div>
+                </div>
+                <div class="card lesson-card locked">
+                  <div class="num-badge">3</div>
+                  <div style="flex:1;">
+                    <div class="title">Control de temperaturas</div>
+                    <div class="meta">⏱️ 10 min<span class="dot"></span>🔒</div>
+                  </div>
+                </div>
+                <div class="card lesson-card locked">
+                  <div class="num-badge">4</div>
+                  <div style="flex:1;">
+                    <div class="title">Limpieza y desinfección</div>
+                    <div class="meta">⏱️ 12 min<span class="dot"></span>🔒</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCREEN 5: LECCIÓN TEÓRICA ========== -->
+  <div class="screen-section">
+    <div class="screen-info">
+      <span class="num">PANTALLA 05</span>
+      <h2>Contenido de la lección (sección teórica)</h2>
+      <p>Vista de una sección teórica con texto, ilustración y concepto clave destacado. Barra de progreso superior.</p>
+      <span class="hu-tag">HU-08</span>
+      <span class="hu-tag">HU-09</span>
+    </div>
+    <div class="devices">
+      <div>
+        <div class="device-label">Móvil</div>
+        <div class="mobile">
+          <div class="mobile-notch"></div>
+          <div class="mobile-screen">
+            <div class="app-bar">
+              <button class="icon-btn">←</button>
+              <div style="font-size:13px; font-weight:600; color:var(--text);">Lección 1</div>
+              <button class="icon-btn">⋮</button>
+            </div>
+            <div style="padding:0 20px;">
+              <div class="progress-bar" style="margin-top:14px;">
+                <div class="fill" style="width:25%"></div>
+              </div>
+            </div>
+            <div class="content-area" style="padding-top:8px;">
+              <p class="section-counter">Sección 1 de 4</p>
+              <h3 class="screen-title" style="font-size:20px;">¿Por qué importa la higiene?</h3>
+              <div class="illustration">🤲🧫</div>
+              <div class="lesson-text">
+                Cada año, miles de personas en Colombia se enferman por consumir alimentos contaminados. La causa más común no son los ingredientes ni los equipos: <b>son las manos del manipulador</b>.
+              </div>
+              <div class="lesson-text">
+                Tus manos pasan por todas partes — el celular, el dinero, las manijas. Si tocas un alimento sin lavarlas, las bacterias pueden multiplicarse en horas y enfermar a quien lo come.
+              </div>
+              <div class="key-concept">
+                <div class="label">📌 Concepto clave</div>
+                <p><b>Inocuidad</b> = garantía de que un alimento no causará daño al consumidor. Tu higiene es el factor con mayor impacto.</p>
+              </div>
+              <button class="btn btn-primary">Siguiente →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="device-label">Desktop</div>
+        <div class="desktop">
+          <div class="desktop-bar"><span></span><span></span><span></span></div>
+          <div class="desktop-screen">
+            <div class="app-bar">
+              <div style="display:flex; align-items:center; gap:12px;">
+                <button class="icon-btn">←</button>
+                <div style="font-size:14px; font-weight:600;">Lección 1 — Higiene personal</div>
+              </div>
+              <div style="font-size:12px; color:var(--text-muted);">Sección 1 de 4</div>
+            </div>
+            <div style="padding:0 32px;">
+              <div class="progress-bar" style="margin-top:12px;">
+                <div class="fill" style="width:25%"></div>
+              </div>
+            </div>
+            <div class="content-area">
+              <h3 class="screen-title">¿Por qué importa la higiene?</h3>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start;">
+                <div class="illustration" style="height:200px; font-size:72px;">🤲🧫</div>
+                <div>
+                  <div class="lesson-text">Cada año, miles de personas en Colombia se enferman por consumir alimentos contaminados. La causa más común son <b>las manos del manipulador</b>.</div>
+                  <div class="key-concept">
+                    <div class="label">📌 Concepto clave</div>
+                    <p><b>Inocuidad</b> = garantía de que un alimento no causará daño.</p>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:20px; max-width:200px;">
+                <button class="btn btn-primary">Siguiente →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCREEN 6: PREGUNTA INTERCALADA ========== -->
+  <div class="screen-section">
+    <div class="screen-info">
+      <span class="num">PANTALLA 06</span>
+      <h2>Pregunta intercalada</h2>
+      <p>Pregunta corta tras cada sección teórica. Muestra retroalimentación inmediata con la opción correcta destacada.</p>
+      <span class="hu-tag">HU-10</span>
+    </div>
+    <div class="devices">
+      <div>
+        <div class="device-label">Móvil — momento de respuesta</div>
+        <div class="mobile">
+          <div class="mobile-notch"></div>
+          <div class="mobile-screen">
+            <div class="app-bar">
+              <button class="icon-btn">←</button>
+              <div style="font-size:13px; font-weight:600;">Lección 1</div>
+              <button class="icon-btn">⋮</button>
+            </div>
+            <div style="padding:0 20px;">
+              <div class="progress-bar" style="margin-top:14px;">
+                <div class="fill" style="width:35%"></div>
+              </div>
+            </div>
+            <div class="content-area" style="padding-top:8px;">
+              <div class="question-card">
+                <div class="label">⚡ Pregunta rápida</div>
+                <div class="question">Según la Resolución 2674 de 2013, ¿cuál es la primera línea de defensa de la inocuidad alimentaria?</div>
+                <div class="option">
+                  <div class="letter">A</div>
+                  <div class="text">El uso de equipos certificados</div>
+                </div>
+                <div class="option correct">
+                  <div class="letter">B</div>
+                  <div class="text">La higiene del personal manipulador</div>
+                </div>
+                <div class="option">
+                  <div class="letter">C</div>
+                  <div class="text">La temperatura de almacenamiento</div>
+                </div>
+                <div class="option">
+                  <div class="letter">D</div>
+                  <div class="text">El empaque del producto final</div>
+                </div>
+              </div>
+              <div class="key-concept" style="background:#ECFDF5; border-color:var(--success);">
+                <div class="label" style="color:var(--success);">✓ ¡Correcto!</div>
+                <p>El Capítulo III de la Resolución 2674 está dedicado al personal manipulador precisamente porque las prácticas humanas son el factor con mayor impacto en la inocuidad.</p>
+              </div>
+              <button class="btn btn-primary">Continuar lección →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="device-label">Desktop — momento de respuesta</div>
+        <div class="desktop">
+          <div class="desktop-bar"><span></span><span></span><span></span></div>
+          <div class="desktop-screen">
+            <div class="app-bar">
+              <div style="display:flex; align-items:center; gap:12px;">
+                <button class="icon-btn">←</button>
+                <div style="font-size:14px; font-weight:600;">Lección 1 — Pregunta rápida</div>
+              </div>
+              <div style="font-size:12px; color:var(--text-muted);">Tras sección 1</div>
+            </div>
+            <div class="content-area" style="max-width:560px; margin:0 auto;">
+              <div class="question-card">
+                <div class="label">⚡ Pregunta rápida</div>
+                <div class="question">¿Cuál es la primera línea de defensa de la inocuidad alimentaria?</div>
+                <div class="option"><div class="letter">A</div><div class="text">El uso de equipos certificados</div></div>
+                <div class="option correct"><div class="letter">B</div><div class="text">La higiene del personal manipulador</div></div>
+                <div class="option"><div class="letter">C</div><div class="text">La temperatura de almacenamiento</div></div>
+                <div class="option"><div class="letter">D</div><div class="text">El empaque del producto final</div></div>
+              </div>
+              <div class="key-concept" style="background:#ECFDF5; border-color:var(--success);">
+                <div class="label" style="color:var(--success);">✓ ¡Correcto!</div>
+                <p>El Capítulo III de la Resolución 2674 está dedicado al personal manipulador.</p>
+              </div>
+              <button class="btn btn-primary" style="max-width:240px;">Continuar lección →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCREEN 7: PANTALLA PUENTE AL JUEGO ========== -->
+  <div class="screen-section">
+    <div class="screen-info">
+      <span class="num">PANTALLA 07</span>
+      <h2>Pantalla puente al nivel interactivo</h2>
+      <p>Tras completar la teoría, el usuario llega a esta pantalla antes de entrar al videojuego. Le presenta los objetivos del nivel.</p>
+      <span class="hu-tag">HU-11</span>
+    </div>
+    <div class="devices">
+      <div>
+        <div class="device-label">Móvil</div>
+        <div class="mobile">
+          <div class="mobile-notch"></div>
+          <div class="mobile-screen">
+            <div class="app-bar">
+              <button class="icon-btn">←</button>
+              <div style="font-size:13px; font-weight:600;">Lección 1</div>
+              <div style="width:32px"></div>
+            </div>
+            <div class="bridge-content">
+              <div class="bridge-emoji">🎮</div>
+              <div class="bridge-title">¡Hora de practicar!</div>
+              <div class="bridge-text">Aplica lo aprendido en una cocina virtual. Tu turno empieza ahora.</div>
+              <div class="objective-list">
+                <div class="label">🎯 Objetivos del nivel</div>
+                <ul>
+                  <li>Ponerte el uniforme completo</li>
+                  <li>Quitarte accesorios</li>
+                  <li>Lavarte las manos correctamente</li>
+                  <li>Reaccionar bien ante imprevistos</li>
+                </ul>
+              </div>
+              <button class="btn btn-secondary">▶ Iniciar nivel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="device-label">Desktop</div>
+        <div class="desktop">
+          <div class="desktop-bar"><span></span><span></span><span></span></div>
+          <div class="desktop-screen">
+            <div class="app-bar">
+              <div style="display:flex; align-items:center; gap:12px;">
+                <button class="icon-btn">←</button>
+                <div style="font-size:14px; font-weight:600;">Lección 1 — Nivel interactivo</div>
+              </div>
+            </div>
+            <div class="bridge-content" style="max-width:480px; margin:0 auto;">
+              <div class="bridge-emoji">🎮</div>
+              <div class="bridge-title">¡Hora de practicar!</div>
+              <div class="bridge-text">Aplica lo aprendido en una cocina virtual.</div>
+              <div class="objective-list">
+                <div class="label">🎯 Objetivos del nivel</div>
+                <ul>
+                  <li>Ponerte el uniforme completo</li>
+                  <li>Quitarte accesorios</li>
+                  <li>Lavarte las manos correctamente</li>
+                  <li>Reaccionar bien ante imprevistos</li>
+                </ul>
+              </div>
+              <button class="btn btn-secondary" style="max-width:280px; margin:0 auto;">▶ Iniciar nivel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCREEN 8: HUD DEL JUEGO ========== -->
+  <div class="screen-section">
+    <div class="screen-info">
+      <span class="num">PANTALLA 08</span>
+      <h2>HUD durante el nivel del juego</h2>
+      <p>Interfaz superpuesta al gameplay 3D de Unity. Muestra puntuación, racha, inocuidad, objetivos activos y la acción contextual.</p>
+      <span class="hu-tag">HU-12</span>
+      <span class="hu-tag">HU-13</span>
+    </div>
+    <div class="devices">
+      <div>
+        <div class="device-label">Móvil (vertical)</div>
+        <div class="mobile">
+          <div class="mobile-notch"></div>
+          <div class="mobile-screen">
+            <div class="game-hud">
+              <div class="game-bg"></div>
+              <div class="hud-overlay">
+                <div>
+                  <div class="hud-top">
+                    <div class="hud-card">
+                      <div class="lbl">Inocuidad</div>
+                      <div class="val green">95%</div>
+                    </div>
+                    <div class="hud-card" style="text-align:right;">
+                      <div class="lbl">Puntos</div>
+                      <div class="val amber">1,250 XP</div>
+                    </div>
+                  </div>
+                  <div style="margin-top:12px;">
+                    <div class="hud-objectives">
+                      <div class="lbl">🎯 Objetivos activos (3)</div>
+                      <ul>
+                        <li class="done">Ponerse el uniforme</li>
+                        <li class="done">Quitarse accesorios</li>
+                        <li>Lavarse las manos (20 seg)</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="hud-bottom">
+                  <div style="font-size:11px; opacity:0.7; margin-bottom:8px;">▶ ESTACIÓN DE LAVAMANOS</div>
+                  <div class="hud-action">
+                    <span style="font-size:18px;">💧</span>
+                    <span>Toca para activar el agua</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="device-label">Desktop (horizontal)</div>
+        <div class="desktop">
+          <div class="desktop-bar"><span></span><span></span><span></span></div>
+          <div class="desktop-screen">
+            <div class="game-hud">
+              <div class="game-bg"></div>
+              <div class="hud-overlay" style="padding:20px;">
+                <div class="hud-top">
+                  <div style="display:flex; gap:12px;">
+                    <div class="hud-card">
+                      <div class="lbl">Inocuidad</div>
+                      <div class="val green">95%</div>
+                    </div>
+                    <div class="hud-card">
+                      <div class="lbl">Racha</div>
+                      <div class="val">3 ✨</div>
+                    </div>
+                  </div>
+                  <div class="hud-card" style="text-align:right;">
+                    <div class="lbl">Puntos</div>
+                    <div class="val amber">1,250 XP</div>
+                  </div>
+                </div>
+                <div style="display:flex; align-items:flex-end; gap:16px;">
+                  <div class="hud-objectives" style="flex:1;">
+                    <div class="lbl">🎯 Objetivos activos (3)</div>
+                    <ul>
+                      <li class="done">Ponerse el uniforme</li>
+                      <li class="done">Quitarse accesorios</li>
+                      <li>Lavarse las manos (20 seg)</li>
+                    </ul>
+                  </div>
+                  <div style="flex:1;">
+                    <div class="hud-action">
+                      <span style="font-size:18px;">💧</span>
+                      <span>Toca el lavamanos</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCREEN 9: RESULTADOS DEL NIVEL ========== -->
+  <div class="screen-section">
+    <div class="screen-info">
+      <span class="num">PANTALLA 09</span>
+      <h2>Resultados del nivel</h2>
+      <p>Resumen tras terminar el nivel: puntuación, objetivos completados/fallados y recomendaciones de estudio.</p>
+      <span class="hu-tag">HU-14</span>
+    </div>
+    <div class="devices">
+      <div>
+        <div class="device-label">Móvil</div>
+        <div class="mobile">
+          <div class="mobile-notch"></div>
+          <div class="mobile-screen">
+            <div class="app-bar">
+              <button class="icon-btn">←</button>
+              <div style="font-size:13px; font-weight:600;">Resultado del nivel</div>
+              <div style="width:32px"></div>
+            </div>
+            <div class="content-area">
+              <div class="result-circle">
+                <div class="number">85%</div>
+              </div>
+              <h3 style="text-align:center; font-size:20px; font-weight:700; color:var(--success); margin-bottom:6px;">¡Aprobado!</h3>
+              <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-bottom:20px;">Has aplicado las prácticas básicas de higiene.</p>
+
+              <div class="card">
+                <div class="result-stat">
+                  <span class="lbl">Objetivos completados</span>
+                  <span class="val green">6 de 7</span>
+                </div>
+                <div class="result-stat">
+                  <span class="lbl">Errores cometidos</span>
+                  <span class="val red">1</span>
+                </div>
+                <div class="result-stat">
+                  <span class="lbl">Puntos ganados</span>
+                  <span class="val">+ 95 XP</span>
+                </div>
+                <div class="result-stat">
+                  <span class="lbl">Tiempo total</span>
+                  <span class="val">3:42 min</span>
+                </div>
+              </div>
+
+              <div class="key-concept" style="background:#FEF3C7; border-color:var(--secondary);">
+                <div class="label" style="color:#B45309;">⚠ Refuerza este tema</div>
+                <p>Olvidaste quitarte el reloj antes de entrar a cocina. Repasa la sección 3 sobre uniforme.</p>
+              </div>
+
+              <button class="btn btn-primary">Avanzar a la evaluación final →</button>
+              <button class="btn btn-ghost" style="margin-top:8px;">Repetir nivel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="device-label">Desktop</div>
+        <div class="desktop">
+          <div class="desktop-bar"><span></span><span></span><span></span></div>
+          <div class="desktop-screen">
+            <div class="app-bar">
+              <div style="display:flex; align-items:center; gap:12px;">
+                <button class="icon-btn">←</button>
+                <div style="font-size:14px; font-weight:600;">Resultado del nivel</div>
+              </div>
+            </div>
+            <div class="content-area" style="max-width:600px; margin:0 auto;">
+              <div style="display:grid; grid-template-columns:auto 1fr; gap:32px; align-items:center;">
+                <div class="result-circle" style="margin:0;">
+                  <div class="number">85%</div>
+                </div>
+                <div>
+                  <h3 style="font-size:24px; font-weight:700; color:var(--success); margin-bottom:6px;">¡Aprobado!</h3>
+                  <p style="font-size:14px; color:var(--text-muted);">Has aplicado las prácticas básicas de higiene personal.</p>
+                </div>
+              </div>
+              <div class="card" style="margin-top:20px;">
+                <div class="result-stat">
+                  <span class="lbl">Objetivos completados</span>
+                  <span class="val green">6 de 7</span>
+                </div>
+                <div class="result-stat">
+                  <span class="lbl">Errores</span>
+                  <span class="val red">1</span>
+                </div>
+                <div class="result-stat">
+                  <span class="lbl">Puntos ganados</span>
+                  <span class="val">+ 95 XP</span>
+                </div>
+              </div>
+              <div style="display:flex; gap:12px; margin-top:20px;">
+                <button class="btn btn-ghost" style="flex:1;">Repetir nivel</button>
+                <button class="btn btn-primary" style="flex:2;">Avanzar →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCREEN 10: EVALUACIÓN FINAL ========== -->
+  <div class="screen-section">
+    <div class="screen-info">
+      <span class="num">PANTALLA 10</span>
+      <h2>Evaluación final</h2>
+      <p>Examen consolidado al terminar todas las lecciones. Pasa con 80%+. Hasta 3 intentos. Aleatoriza preguntas.</p>
+      <span class="hu-tag">HU-17</span>
+    </div>
+    <div class="devices">
+      <div>
+        <div class="device-label">Móvil</div>
+        <div class="mobile">
+          <div class="mobile-notch"></div>
+          <div class="mobile-screen">
+            <div class="app-bar">
+              <button class="icon-btn">✕</button>
+              <div style="font-size:13px; font-weight:600;">Evaluación final</div>
+              <div class="timer" style="margin-bottom:0; padding:4px 10px; font-size:11px;">⏱ 8:42</div>
+            </div>
+            <div style="padding:14px 20px 0;">
+              <div class="eval-progress">
+                <div class="step done"></div>
+                <div class="step done"></div>
+                <div class="step done"></div>
+                <div class="step current"></div>
+                <div class="step"></div>
+                <div class="step"></div>
+                <div class="step"></div>
+                <div class="step"></div>
+                <div class="step"></div>
+                <div class="step"></div>
+              </div>
+              <div style="font-size:12px; color:var(--text-muted); text-align:center; margin-bottom:16px;">Pregunta 4 de 10</div>
+            </div>
+            <div class="content-area" style="padding-top:0;">
+              <div class="question-card" style="border-color:var(--border);">
+                <div class="label" style="color:var(--secondary);">📝 Higiene personal</div>
+                <div class="question">¿Cuánto tiempo mínimo debe durar un lavado correcto de manos?</div>
+                <div class="option"><div class="letter">A</div><div class="text">5 segundos</div></div>
+                <div class="option"><div class="letter">B</div><div class="text">10 segundos</div></div>
+                <div class="option selected"><div class="letter">C</div><div class="text">20 segundos</div></div>
+                <div class="option"><div class="letter">D</div><div class="text">1 minuto</div></div>
+              </div>
+              <button class="btn btn-primary">Siguiente pregunta →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="device-label">Desktop</div>
+        <div class="desktop">
+          <div class="desktop-bar"><span></span><span></span><span></span></div>
+          <div class="desktop-screen">
+            <div class="app-bar">
+              <div style="display:flex; align-items:center; gap:12px;">
+                <button class="icon-btn">✕</button>
+                <div style="font-size:14px; font-weight:600;">Evaluación final</div>
+              </div>
+              <div class="timer" style="margin-bottom:0;">⏱ 8:42</div>
+            </div>
+            <div class="content-area" style="max-width:600px; margin:0 auto;">
+              <div class="eval-progress">
+                <div class="step done"></div><div class="step done"></div><div class="step done"></div><div class="step current"></div><div class="step"></div><div class="step"></div><div class="step"></div><div class="step"></div><div class="step"></div><div class="step"></div>
+              </div>
+              <div style="font-size:13px; color:var(--text-muted); text-align:center; margin-bottom:24px;">Pregunta 4 de 10</div>
+              <div class="question-card" style="border-color:var(--border);">
+                <div class="label" style="color:var(--secondary);">📝 Higiene personal</div>
+                <div class="question">¿Cuánto tiempo mínimo debe durar un lavado correcto de manos?</div>
+                <div class="option"><div class="letter">A</div><div class="text">5 segundos</div></div>
+                <div class="option"><div class="letter">B</div><div class="text">10 segundos</div></div>
+                <div class="option selected"><div class="letter">C</div><div class="text">20 segundos</div></div>
+                <div class="option"><div class="letter">D</div><div class="text">1 minuto</div></div>
+              </div>
+              <button class="btn btn-primary" style="max-width:240px;">Siguiente →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCREEN 11: CERTIFICADO ========== -->
+  <div class="screen-section">
+    <div class="screen-info">
+      <span class="num">PANTALLA 11</span>
+      <h2>Certificado emitido</h2>
+      <p>Pantalla final tras aprobar la evaluación. Muestra el certificado con QR único, opciones de descarga y compartir.</p>
+      <span class="hu-tag">HU-18</span>
+      <span class="hu-tag">HU-20</span>
+    </div>
+    <div class="devices">
+      <div>
+        <div class="device-label">Móvil</div>
+        <div class="mobile">
+          <div class="mobile-notch"></div>
+          <div class="mobile-screen">
+            <div class="app-bar">
+              <button class="icon-btn">←</button>
+              <div style="font-size:13px; font-weight:600;">Tu certificado</div>
+              <button class="icon-btn">📤</button>
+            </div>
+            <div class="content-area">
+              <p style="text-align:center; font-size:13px; color:var(--success); font-weight:600; margin-bottom:14px;">🎉 ¡Felicitaciones, Laura!</p>
+
+              <div class="certificate">
+                <div class="seal">✓</div>
+                <div class="cert-label">Certificado</div>
+                <div class="cert-title">Buenas Prácticas de Manufactura — Higiene Personal</div>
+                <div class="cert-subtitle">Se otorga a:</div>
+                <div class="cert-name">Laura Gómez</div>
+                <div class="cert-detail">
+                  CC. 1.234.567.890<br>
+                  Curso aprobado con calificación de 92%<br>
+                  Emitido el 29/04/2026 — Vigente hasta 29/04/2027
+                </div>
+                <div class="qr-real"></div>
+                <div style="font-size:9px; color:var(--text-muted); margin-top:8px;">Verifica en nexu.co/v/AB12CD</div>
+              </div>
+
+              <button class="btn btn-primary" style="margin-bottom:8px;">📥 Descargar PDF</button>
+              <button class="btn btn-soft">📤 Compartir certificado</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="device-label">Desktop</div>
+        <div class="desktop">
+          <div class="desktop-bar"><span></span><span></span><span></span></div>
+          <div class="desktop-screen">
+            <div class="app-bar">
+              <div class="logo">Ne<span>x</span>u</div>
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-soft btn-sm">📥 Descargar</button>
+                <button class="btn btn-primary btn-sm">📤 Compartir</button>
+              </div>
+            </div>
+            <div class="content-area" style="max-width:520px; margin:0 auto;">
+              <p style="text-align:center; font-size:14px; color:var(--success); font-weight:600; margin-bottom:14px;">🎉 ¡Felicitaciones, Laura!</p>
+              <div class="certificate">
+                <div class="seal">✓</div>
+                <div class="cert-label">Certificado</div>
+                <div class="cert-title">BPM — Higiene Personal</div>
+                <div class="cert-subtitle">Se otorga a:</div>
+                <div class="cert-name">Laura Gómez</div>
+                <div class="cert-detail">
+                  CC. 1.234.567.890<br>
+                  Aprobado con 92% — 29/04/2026<br>
+                  Vigente hasta 29/04/2027
+                </div>
+                <div class="qr-real"></div>
+                <div style="font-size:10px; color:var(--text-muted); margin-top:8px;">nexu.co/v/AB12CD</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCREEN 12: VERIFICACIÓN PÚBLICA ========== -->
+  <div class="screen-section">
+    <div class="screen-info">
+      <span class="num">PANTALLA 12</span>
+      <h2>Verificación pública del QR</h2>
+      <p>Página accesible al escanear el QR del certificado, sin requerir login. Pensada para inspectores sanitarios.</p>
+      <span class="hu-tag">HU-19</span>
+    </div>
+    <div class="devices">
+      <div>
+        <div class="device-label">Móvil (al escanear con celular)</div>
+        <div class="mobile">
+          <div class="mobile-notch"></div>
+          <div class="mobile-screen">
+            <div class="app-bar">
+              <div style="font-size:11px; color:var(--text-muted);">🔒 nexu.co/v/AB12CD</div>
+              <button class="icon-btn">⋮</button>
+            </div>
+            <div class="content-area">
+              <div style="text-align:center; margin-bottom:20px;">
+                <div style="display:inline-block; font-weight:800; font-size:22px; color:var(--primary); letter-spacing:-1px;">Ne<span style="color:var(--secondary)">x</span>u</div>
+                <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">Verificación pública de certificado</div>
+              </div>
+
+              <div class="verify-status">
+                <div class="icon-big">✓</div>
+                <div class="status-text">Certificado válido</div>
+                <div class="status-sub">Vigente y emitido por Nexu</div>
+              </div>
+
+              <div class="card">
+                <div class="info-row">
+                  <span class="lbl">Nombre</span>
+                  <span class="val">Laura Gómez</span>
+                </div>
+                <div class="info-row">
+                  <span class="lbl">Documento</span>
+                  <span class="val">CC. 1.234.567.890</span>
+                </div>
+                <div class="info-row">
+                  <span class="lbl">Curso</span>
+                  <span class="val">BPM — Higiene Personal</span>
+                </div>
+                <div class="info-row">
+                  <span class="lbl">Fecha emisión</span>
+                  <span class="val">29 abr 2026</span>
+                </div>
+                <div class="info-row">
+                  <span class="lbl">Vigente hasta</span>
+                  <span class="val" style="color:var(--success);">29 abr 2027</span>
+                </div>
+                <div class="info-row">
+                  <span class="lbl">Código</span>
+                  <span class="val" style="font-family:monospace;">AB12CD-3F5K</span>
+                </div>
+              </div>
+
+              <div style="font-size:11px; color:var(--text-muted); text-align:center; margin-top:16px; line-height:1.5;">
+                Esta certificación es soporte de capacitación BPM.<br>No reemplaza inspecciones del INVIMA.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="device-label">Desktop (inspector con computador)</div>
+        <div class="desktop">
+          <div class="desktop-bar"><span></span><span></span><span></span></div>
+          <div class="desktop-screen">
+            <div class="app-bar">
+              <div style="font-size:12px; color:var(--text-muted);">🔒 nexu.co/v/AB12CD</div>
+              <div class="logo" style="font-size:16px;">Ne<span>x</span>u</div>
+            </div>
+            <div class="content-area" style="max-width:520px; margin:0 auto;">
+              <div class="verify-status">
+                <div class="icon-big">✓</div>
+                <div class="status-text">Certificado válido</div>
+                <div class="status-sub">Vigente y emitido por Nexu</div>
+              </div>
+              <div class="card">
+                <div class="info-row"><span class="lbl">Nombre</span><span class="val">Laura Gómez</span></div>
+                <div class="info-row"><span class="lbl">Documento</span><span class="val">CC. 1.234.567.890</span></div>
+                <div class="info-row"><span class="lbl">Curso</span><span class="val">BPM — Higiene Personal</span></div>
+                <div class="info-row"><span class="lbl">Vigente hasta</span><span class="val" style="color:var(--success);">29 abr 2027</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ========== FOOTER ========== -->
+<div class="doc-footer">
+  <div style="font-weight:600; color:var(--primary); margin-bottom:4px;">Nexu — Mockups del MVP, Iteración 1</div>
+  <div>Elaborado por Juan Manuel Agudelo López — Product Owner • Abril 2026</div>
+</div>
+
+</body>
+</html>
