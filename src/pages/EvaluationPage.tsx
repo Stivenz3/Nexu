@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Clock, X, ClipboardCheck, Lightbulb, ArrowRight } from 'lucide-react'
-import { Header } from '@/components/layout'
-import { Card, Badge, Button, RadioGroup } from '@/components/ui'
+import { Card, Button, RadioGroup } from '@/components/ui'
 import { mockQuestions } from '@/data/mockData'
 import { cn } from '@/lib/utils'
 
@@ -16,7 +15,6 @@ export function EvaluationPage() {
 
   const totalQuestions = mockQuestions.length
   const question = mockQuestions[currentQuestion]
-  const progress = ((currentQuestion + 1) / totalQuestions) * 100
 
   // Timer
   useEffect(() => {

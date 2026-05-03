@@ -1,6 +1,6 @@
-import { Award, Download, Share2, Info, Calendar } from 'lucide-react'
+import { Award, Download, Share2, Info } from 'lucide-react'
 import { AppLayout } from '@/components/layout'
-import { Card, Badge, Button } from '@/components/ui'
+import { Card, Button } from '@/components/ui'
 import { useAuth } from '@/contexts/AuthContext'
 import type { Certificate } from '@/types'
 
