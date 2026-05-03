@@ -1,8 +1,11 @@
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 import { User, CreditCard, Mail, Lock, ShieldCheck, Zap, ArrowLeft, ArrowRight } from 'lucide-react'
 import { Button, Input, Select, Checkbox } from '@/components/ui'
-import { useAuth } from '@/contexts/AuthContext'
+import { FirebaseError } from 'firebase/app'
+import { createUserWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore'
+import { auth, db } from '@/firebase/config'
 
 const documentTypes = [
   { value: 'cc', label: 'Cedula de Ciudadania' },
@@ -12,8 +15,10 @@ const documentTypes = [
 
 export function RegisterPage() {
   const navigate = useNavigate()
-  const { register } = useAuth()
+  const location = useLocation()
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [autofillShield, setAutofillShield] = useState(true)
   const [formData, setFormData] = useState({
     fullName: '',
     documentType: 'cc',
@@ -23,22 +28,59 @@ export function RegisterPage() {
     acceptTerms: false,
   })
 
+  useEffect(() => {
+    setAutofillShield(true)
+    setFormData({
+      fullName: '',
+      documentType: 'cc',
+      documentNumber: '',
+      email: '',
+      password: '',
+      acceptTerms: false,
+    })
+    setError(null)
+    const unlock = window.setTimeout(() => setAutofillShield(false), 250)
+    return () => window.clearTimeout(unlock)
+  }, [location.pathname, location.key])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError(null)
     setIsLoading(true)
 
-    const success = await register({
-      fullName: formData.fullName,
-      documentType: formData.documentType,
-      documentNumber: formData.documentNumber,
-      email: formData.email,
-      password: formData.password,
-    })
+    try {
+      const credentials = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
 
-    setIsLoading(false)
+      // Si falla el perfil/Firestore, no rompemos el registro ya creado en Auth.
+      try {
+        await updateProfile(credentials.user, { displayName: formData.fullName })
+        await setDoc(doc(db, 'users', credentials.user.uid), {
+          fullName: formData.fullName,
+          documentType: formData.documentType,
+          documentNumber: formData.documentNumber,
+          email: formData.email,
+          createdAt: serverTimestamp(),
+        })
+      } catch (profileError) {
+        console.warn('Cuenta creada pero no se pudo guardar el perfil en Firestore:', profileError)
+      }
 
-    if (success) {
-      navigate('/ruta')
+      await signOut(auth)
+      setIsLoading(false)
+      navigate('/login', { state: { registered: true } })
+    } catch (firebaseError) {
+      setIsLoading(false)
+      if (firebaseError instanceof FirebaseError) {
+        const messages: Record<string, string> = {
+          'auth/email-already-in-use': 'Este correo ya esta registrado.',
+          'auth/invalid-email': 'El correo no es valido.',
+          'auth/weak-password': 'La contrasena debe tener al menos 6 caracteres.',
+          'auth/network-request-failed': 'Sin conexion. Revisa tu internet.',
+        }
+        setError(messages[firebaseError.code] ?? 'No se pudo crear la cuenta.')
+        return
+      }
+      setError('No se pudo crear la cuenta.')
     }
   }
 
@@ -52,6 +94,7 @@ export function RegisterPage() {
               <button 
                 onClick={() => navigate(-1)}
                 className="p-2 -ml-2 rounded-lg hover:bg-surface-container-high transition-colors"
+                aria-label="Volver"
               >
                 <ArrowLeft className="w-5 h-5 text-foreground" />
               </button>
@@ -106,12 +149,45 @@ export function RegisterPage() {
               Completa tus datos para crear tu perfil profesional.
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            {error && (
+              <div className="mb-6 p-4 rounded-lg bg-error/10 border border-error/30">
+                <p className="text-body-sm text-error">{error}</p>
+              </div>
+            )}
+
+            <form
+              autoComplete="off"
+              onSubmit={handleSubmit}
+              className="space-y-6"
+              key={`register-${location.key}`}
+            >
+              <div className="absolute -left-[9999px] w-px h-px overflow-hidden" aria-hidden="true">
+                <input
+                  type="text"
+                  title="omitir"
+                  placeholder="omitir"
+                  autoComplete="username"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                />
+                <input
+                  type="password"
+                  title="omitir"
+                  placeholder="omitir"
+                  autoComplete="current-password"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                />
+              </div>
               <Input
                 label="Nombre completo"
+                name="nexu-reg-full-name"
+                autoComplete="off"
                 placeholder="Ej. Juan Perez"
                 icon={<User className="w-5 h-5" />}
                 value={formData.fullName}
+                readOnly={autofillShield}
+                onFocus={() => setAutofillShield(false)}
                 onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                 required
               />
@@ -122,12 +198,18 @@ export function RegisterPage() {
                   options={documentTypes}
                   icon={<CreditCard className="w-5 h-5" />}
                   value={formData.documentType}
+                  autoComplete="off"
+                  name="nexu-reg-doc-type"
                   onChange={(e) => setFormData({ ...formData, documentType: e.target.value })}
                 />
                 <Input
                   label="Numero de documento"
                   placeholder="123456789"
+                  name="nexu-reg-doc-number"
+                  autoComplete="off"
                   value={formData.documentNumber}
+                  readOnly={autofillShield}
+                  onFocus={() => setAutofillShield(false)}
                   onChange={(e) => setFormData({ ...formData, documentNumber: e.target.value })}
                   required
                 />
@@ -136,9 +218,13 @@ export function RegisterPage() {
               <Input
                 label="Correo electronico"
                 type="email"
+                name="nexu-reg-email"
+                autoComplete="off"
                 placeholder="usuario@email.com"
                 icon={<Mail className="w-5 h-5" />}
                 value={formData.email}
+                readOnly={autofillShield}
+                onFocus={() => setAutofillShield(false)}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
               />
@@ -146,9 +232,13 @@ export function RegisterPage() {
               <Input
                 label="Contrasena"
                 type="password"
+                name="nexu-reg-password"
+                autoComplete="new-password"
                 placeholder="********"
                 icon={<Lock className="w-5 h-5" />}
                 value={formData.password}
+                readOnly={autofillShield}
+                onFocus={() => setAutofillShield(false)}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 required
               />

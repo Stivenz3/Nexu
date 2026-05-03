@@ -1,6 +1,7 @@
 export { WelcomePage } from './WelcomePage'
 export { LoginPage } from './LoginPage'
 export { RegisterPage } from './RegisterPage'
+export { ForgotPasswordPage } from './ForgotPasswordPage'
 export { LearningPathPage } from './LearningPathPage'
 export { LessonPage } from './LessonPage'
 export { EvaluationPage } from './EvaluationPage'

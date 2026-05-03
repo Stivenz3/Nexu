@@ -1,32 +1,53 @@
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 import { Mail, Lock, ShieldCheck, Zap, ArrowLeft, ArrowRight } from 'lucide-react'
 import { Button, Input, Checkbox } from '@/components/ui'
-import { useAuth } from '@/contexts/AuthContext'
+import { FirebaseError } from 'firebase/app'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '@/firebase/config'
 
 export function LoginPage() {
   const navigate = useNavigate()
-  const { login } = useAuth()
+  const location = useLocation()
+  const registered = (location.state as { registered?: boolean } | null)?.registered
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [autofillShield, setAutofillShield] = useState(true)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     rememberMe: false,
   })
 
+  useEffect(() => {
+    setAutofillShield(true)
+    setFormData({ email: '', password: '', rememberMe: false })
+    setError(null)
+    const unlock = window.setTimeout(() => setAutofillShield(false), 250)
+    return () => window.clearTimeout(unlock)
+  }, [location.pathname, location.key])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
     setIsLoading(true)
 
-    const success = await login(formData.email, formData.password)
-
-    setIsLoading(false)
-    
-    if (success) {
+    try {
+      await signInWithEmailAndPassword(auth, formData.email, formData.password)
+      setIsLoading(false)
       navigate('/ruta')
-    } else {
+    } catch (firebaseError) {
+      setIsLoading(false)
+      if (firebaseError instanceof FirebaseError) {
+        const messages: Record<string, string> = {
+          'auth/user-not-found': 'No existe una cuenta con ese correo.',
+          'auth/wrong-password': 'Contrasena incorrecta.',
+          'auth/invalid-credential': 'Correo o contrasena incorrectos.',
+          'auth/network-request-failed': 'Sin conexion. Revisa tu internet.',
+        }
+        setError(messages[firebaseError.code] ?? 'No se pudo iniciar sesion.')
+        return
+      }
       setError('Credenciales incorrectas. Por favor verifica tu correo y contrasena.')
     }
   }
@@ -41,6 +62,7 @@ export function LoginPage() {
               <button
                 onClick={() => navigate(-1)}
                 className="p-2 -ml-2 rounded-lg hover:bg-surface-container-high transition-colors"
+                aria-label="Volver"
               >
                 <ArrowLeft className="w-5 h-5 text-foreground" />
               </button>
@@ -97,19 +119,53 @@ export function LoginPage() {
               Ingresa tus credenciales para acceder a tu cuenta.
             </p>
 
+            {registered && (
+              <div className="mb-6 p-4 rounded-lg bg-success/10 border border-success/30">
+                <p className="text-body-sm text-success">Cuenta creada correctamente. Ahora inicia sesion.</p>
+              </div>
+            )}
+
             {error && (
               <div className="mb-6 p-4 rounded-lg bg-error/10 border border-error/30">
                 <p className="text-body-sm text-error">{error}</p>
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form
+              autoComplete="off"
+              onSubmit={handleSubmit}
+              className="space-y-6"
+              key={`login-${location.key}`}
+            >
+              {/* Campos trampas: muchos navegadores ignoran autocomplete=off; esto suele dirigir autofill fuera */}
+              <div className="absolute -left-[9999px] w-px h-px overflow-hidden" aria-hidden="true">
+                <input
+                  type="text"
+                  title="omitir"
+                  placeholder="omitir"
+                  autoComplete="username"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                />
+                <input
+                  type="password"
+                  title="omitir"
+                  placeholder="omitir"
+                  autoComplete="current-password"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                />
+              </div>
               <Input
                 label="Correo electronico"
                 type="email"
+                name="nexu-login-email"
+                autoComplete="off"
                 placeholder="usuario@email.com"
                 icon={<Mail className="w-5 h-5" />}
                 value={formData.email}
+                readOnly={autofillShield}
+                onFocus={() => setAutofillShield(false)}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
@@ -119,9 +175,13 @@ export function LoginPage() {
               <Input
                 label="Contrasena"
                 type="password"
+                name="nexu-login-password"
+                autoComplete="off"
                 placeholder="********"
                 icon={<Lock className="w-5 h-5" />}
                 value={formData.password}
+                readOnly={autofillShield}
+                onFocus={() => setAutofillShield(false)}
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
@@ -136,12 +196,9 @@ export function LoginPage() {
                     setFormData({ ...formData, rememberMe: e.target.checked })
                   }
                 />
-                <a
-                  href="#"
-                  className="text-body-sm text-primary font-semibold hover:underline"
-                >
+                <Link to="/forgot-password" className="text-body-sm text-primary font-semibold hover:underline">
                   Olvidaste tu contrasena?
-                </a>
+                </Link>
               </div>
 
               <Button

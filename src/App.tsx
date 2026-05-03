@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from '@/contexts/AuthContext'
 import { WelcomePage } from '@/pages/WelcomePage'
 import { LoginPage } from '@/pages/LoginPage'
 import { RegisterPage } from '@/pages/RegisterPage'
+import { ForgotPasswordPage } from '@/pages/ForgotPasswordPage'
 import { LearningPathPage } from '@/pages/LearningPathPage'
 import { LessonPage } from '@/pages/LessonPage'
 import { EvaluationPage } from '@/pages/EvaluationPage'
@@ -33,6 +34,7 @@ function AppRoutes() {
       <Route path="/" element={<WelcomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registro" element={<RegisterPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route
         path="/ruta"
         element={

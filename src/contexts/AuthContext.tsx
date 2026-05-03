@@ -1,5 +1,15 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
-import type { User } from '@/types'
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+  type User as FirebaseUser,
+} from 'firebase/auth'
+import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
+import type { DocumentType, User } from '@/types'
+import { auth, db } from '@/firebase/config'
 
 interface AuthContextType {
   user: User | null
@@ -20,65 +30,86 @@ interface RegisterData {
 
 const AuthContext = createContext<AuthContextType | null>(null)
 
-const AUTH_STORAGE_KEY = 'nexu_auth_user'
+const isDocumentType = (value: string): value is DocumentType => {
+  return value === 'cc' || value === 'ce' || value === 'passport'
+}
+
+const normalizeDocumentType = (value?: string): DocumentType => {
+  if (!value) return 'cc'
+  const normalized = value.toLowerCase()
+  if (isDocumentType(normalized)) return normalized
+  return 'cc'
+}
+
+function mapFirebaseUser(firebaseUser: FirebaseUser, profile?: Partial<User>): User {
+  return {
+    id: firebaseUser.uid,
+    fullName: profile?.fullName ?? firebaseUser.displayName ?? '',
+    email: firebaseUser.email ?? profile?.email ?? '',
+    documentType: normalizeDocumentType(profile?.documentType),
+    documentNumber: profile?.documentNumber ?? '',
+    createdAt: profile?.createdAt ?? new Date(),
+  }
+}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const storedUser = localStorage.getItem(AUTH_STORAGE_KEY)
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser))
-      } catch {
-        localStorage.removeItem(AUTH_STORAGE_KEY)
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (!firebaseUser) {
+        setUser(null)
+        setIsLoading(false)
+        return
       }
-    }
-    setIsLoading(false)
+
+      // Sesión válida antes de Firestore para que las rutas protegidas no redirijan con user=null.
+      setUser(mapFirebaseUser(firebaseUser))
+      setIsLoading(false)
+
+      try {
+        const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid))
+        const profileData = userDoc.exists() ? (userDoc.data() as Partial<User>) : undefined
+        setUser(mapFirebaseUser(firebaseUser, profileData))
+      } catch {
+        setUser(mapFirebaseUser(firebaseUser))
+      }
+    })
+
+    return unsubscribe
   }, [])
 
   const login = async (email: string, password: string): Promise<boolean> => {
-    // In a real app, this would call an API
-    // For now, we check if user exists in localStorage from registration
-    const storedUser = localStorage.getItem(AUTH_STORAGE_KEY)
-    
-    if (storedUser) {
-      const userData = JSON.parse(storedUser)
-      if (userData.email === email) {
-        setUser(userData)
-        return true
-      }
+    try {
+      await signInWithEmailAndPassword(auth, email, password)
+      return true
+    } catch {
+      return false
     }
-    
-    // If no user found, return false
-    return false
   }
 
   const register = async (userData: RegisterData): Promise<boolean> => {
-    // In a real app, this would call an API
-    const newUser: User = {
-      id: `NX-${new Date().getFullYear()}-${Math.floor(Math.random() * 10000)}`,
-      fullName: userData.fullName,
-      email: userData.email,
-      documentType: userData.documentType,
-      documentNumber: userData.documentNumber,
-      progress: {
-        completedLessons: [],
-        currentLesson: '1',
-        overallPercentage: 0,
-      },
-      createdAt: new Date(),
-    }
+    try {
+      const credentials = await createUserWithEmailAndPassword(auth, userData.email, userData.password)
+      await updateProfile(credentials.user, { displayName: userData.fullName })
 
-    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(newUser))
-    setUser(newUser)
-    return true
+      await setDoc(doc(db, 'users', credentials.user.uid), {
+        fullName: userData.fullName,
+        email: userData.email,
+        documentType: normalizeDocumentType(userData.documentType),
+        documentNumber: userData.documentNumber,
+        createdAt: serverTimestamp(),
+      })
+
+      return true
+    } catch {
+      return false
+    }
   }
 
   const logout = () => {
-    localStorage.removeItem(AUTH_STORAGE_KEY)
-    setUser(null)
+    void signOut(auth)
   }
 
   return (
