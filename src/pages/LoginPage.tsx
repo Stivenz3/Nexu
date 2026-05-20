@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, Link, useLocation } from 'react-router-dom'
+import { TermsOfServiceModal } from '@/components/ui'
 import { Mail, Lock, ShieldCheck, Zap, ArrowLeft, ArrowRight } from 'lucide-react'
 import { Button, Input, Checkbox } from '@/components/ui'
 import { FirebaseError } from 'firebase/app'
@@ -18,6 +19,7 @@ export function LoginPage() {
     password: '',
     rememberMe: false,
   })
+  const [showTermsModal, setShowTermsModal] = useState(false)
 
   useEffect(() => {
     setAutofillShield(true)
@@ -211,7 +213,7 @@ export function LoginPage() {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
 
-              <p className="text-center text-body-sm text-foreground-muted">
+               <p className="text-center text-body-sm text-foreground-muted">
                 No tienes una cuenta?{' '}
                 <Link
                   to="/registro"
@@ -220,10 +222,26 @@ export function LoginPage() {
                   Registrate aqui
                 </Link>
               </p>
+
+              <p className="text-center text-foreground-muted text-body-sm pt-4">
+                Al continuar, aceptas nuestros{' '}
+                <a href="#"
+                  className="underline hover:text-primary"
+                  onClick={e => {
+                    e.preventDefault();
+                    setShowTermsModal(true);
+                  }}
+                >
+                  Términos de Servicio
+                </a>
+              </p>
             </form>
           </div>
         </div>
       </main>
-    </div>
+      {showTermsModal && (
+        <TermsOfServiceModal onClose={() => setShowTermsModal(false)} />
+      )}
+  </div>
   )
 }
