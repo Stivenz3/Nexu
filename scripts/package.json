@@ -1,0 +1,11 @@
+{
+  "name": "nexu-firestore-seed",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "seed": "node seed-lesson1.mjs"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.0.2"
+  }
+}

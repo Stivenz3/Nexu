@@ -8,8 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "firebase:deploy:rules": "firebase deploy --only firestore:rules,firestore:indexes",
-    "seed:lesson1": "node scripts/seed-lesson1.mjs"
+    "firebase:deploy:rules": "npx firebase-tools deploy --only firestore:rules,firestore:indexes",
+    "seed:lesson1": "npm install --prefix scripts && npm run seed --prefix scripts"
   },
   "dependencies": {
     "clsx": "^2.1.0",
@@ -21,8 +21,6 @@
     "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
-    "firebase-admin": "^13.0.2",
-    "firebase-tools": "^13.29.1",
     "@types/lodash": "^4.17.24",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",

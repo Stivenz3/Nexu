@@ -33,10 +33,16 @@ O coloca un JSON de cuenta de servicio y define:
 $env:GOOGLE_APPLICATION_CREDENTIALS="ruta\a\serviceAccountKey.json"
 ```
 
-3. Ejecuta el seed:
+3. Ejecuta el seed (instala `firebase-admin` solo en `scripts/`, no en el build de Vercel):
 
 ```powershell
 npm run seed:lesson1
+```
+
+Para reglas de Firestore sin instalar CLI global:
+
+```powershell
+npm run firebase:deploy:rules
 ```
 
 Deberías ver: `Listo: 1 lección, 8 bloques, 23 preguntas.`
