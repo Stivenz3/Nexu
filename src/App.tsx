@@ -5,8 +5,8 @@ import { LoginPage } from '@/pages/LoginPage'
 import { RegisterPage } from '@/pages/RegisterPage'
 import { ForgotPasswordPage } from '@/pages/ForgotPasswordPage'
 import { LearningPathPage } from '@/pages/LearningPathPage'
-import { LessonPage } from '@/pages/LessonPage'
-import { EvaluationPage } from '@/pages/EvaluationPage'
+import { LessonFlowPage } from '@/pages/LessonFlowPage'
+import { LessonExamPage } from '@/pages/LessonExamPage'
 import { CertificatePage } from '@/pages/CertificatePage'
 import { VerificationPage } from '@/pages/VerificationPage'
 
@@ -47,15 +47,15 @@ function AppRoutes() {
         path="/leccion/:id"
         element={
           <ProtectedRoute>
-            <LessonPage />
+            <LessonFlowPage />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/evaluacion"
+        path="/leccion/:id/evaluacion"
         element={
           <ProtectedRoute>
-            <EvaluationPage />
+            <LessonExamPage />
           </ProtectedRoute>
         }
       />

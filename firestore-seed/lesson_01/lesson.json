@@ -1,0 +1,10 @@
+{
+  "lessonId": "lesson_01_higiene_personal",
+  "title": "Higiene Personal del Manipulador de Alimentos",
+  "order": 1,
+  "normativeBase": "Resolución 2674 de 2013, Capítulo III, Arts. 11–14",
+  "passingScore": 70,
+  "estimatedMinutes": 60,
+  "isActive": true,
+  "totalBlocks": 8
+}

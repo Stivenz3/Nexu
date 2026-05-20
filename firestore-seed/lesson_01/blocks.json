@@ -1,0 +1,196 @@
+[
+  {
+    "blockId": "b01_video",
+    "type": "video",
+    "order": 1,
+    "title": "Introducción y contexto normativo",
+    "isRequired": true,
+    "content": {
+      "youtubeUrl": "https://www.youtube.com/embed/ScMzIvxBSi4",
+      "minWatchPercent": 0,
+      "durationSeconds": 600
+    }
+  },
+  {
+    "blockId": "b02_modulo_a",
+    "type": "theory",
+    "order": 2,
+    "title": "Estado de salud del manipulador",
+    "isRequired": true,
+    "content": {
+      "normativeRef": "Art. 11, Res. 2674 de 2013",
+      "summary": "Toda persona en contacto con alimentos debe mantener estado de salud apropiado y someterse a reconocimiento médico de ingreso y periódico. Las enfermedades infecciosas o lesiones restringen la manipulación hasta su resolución verificada.",
+      "keyPoints": [
+        "Examen médico de ingreso y periódico es obligatorio",
+        "Incluye coprocultivo, frotis de garganta y valoración dermatológica",
+        "Diarrea o vómito reciente exigen retiro hasta coprocultivo negativo",
+        "Portadores asintomáticos pueden seguir excretando patógenos",
+        "Resultados deben estar disponibles para inspección sanitaria"
+      ],
+      "technicalNote": "La norma no limita la restricción a personas con síntomas activos. Un manipulador portador asintomático de Salmonella typhi o Salmonella enterica puede seguir excretando el microorganismo por semanas o meses tras haber superado el cuadro clínico.",
+      "hasInterludedQuestion": true,
+      "questionId": "q_p1i",
+      "questionIds": null
+    }
+  },
+  {
+    "blockId": "b03_modulo_b",
+    "type": "theory",
+    "order": 3,
+    "title": "Educación y capacitación en BPM",
+    "isRequired": true,
+    "content": {
+      "normativeRef": "Art. 12, Res. 2674 de 2013",
+      "summary": "El empleador debe impartir capacitación en higiene de alimentos con mínimo de diez (10) horas anuales por manipulador, con registro documental verificable en inspección sanitaria.",
+      "keyPoints": [
+        "Mínimo 10 horas anuales de capacitación en BPM",
+        "Contenidos: ETA, higiene personal, contaminación cruzada, temperaturas",
+        "Acta con fecha, tema, capacitador y firmas de asistentes",
+        "Lista de asistencia con identificación y cargo",
+        "Evaluación de efectividad y plan anual documentados"
+      ],
+      "technicalNote": "La intensidad mínima de diez (10) horas anuales por manipulador debe distribuirse en sesiones teórico-prácticas, y no puede ser sustituida únicamente por material impreso o audiovisual sin componente presencial o verificable.",
+      "hasInterludedQuestion": true,
+      "questionId": "q_p2i",
+      "questionIds": null
+    }
+  },
+  {
+    "blockId": "b04_modulo_c",
+    "type": "theory",
+    "order": 4,
+    "title": "Lavado de manos: fundamentos y técnica OMS",
+    "isRequired": true,
+    "content": {
+      "normativeRef": "Art. 13, Res. 2674 de 2013",
+      "summary": "El lavado de manos elimina la microbiota transitoria, principal vehículo de patógenos alimentarios. La técnica OMS de 11 pasos dura 40 a 60 segundos con agua y jabón; el alcohol complementa pero no sustituye cuando hay materia orgánica.",
+      "keyPoints": [
+        "Microbiota transitoria incluye Salmonella, E. coli O157:H7, Norovirus",
+        "Lavado correcto reduce 2 a 3 logaritmos de carga microbiana",
+        "Técnica OMS: 11 pasos, 40 a 60 segundos con agua y jabón",
+        "Lavar al ingresar, tras baño, tras crudos y antes de listos para consumo",
+        "Alcohol al 70% no sustituye lavado con materia orgánica visible"
+      ],
+      "technicalNote": "Los guantes no reemplazan el lavado de manos. Se contaminan igual que la piel y deben cambiarse entre tareas de diferente naturaleza microbiológica.",
+      "hasInterludedQuestion": true,
+      "questionId": null,
+      "questionIds": ["q_p3i", "q_p4i", "q_p5i"]
+    }
+  },
+  {
+    "blockId": "b05_modulo_d",
+    "type": "theory",
+    "order": 5,
+    "title": "Uniforme, dotación y conductas prohibidas",
+    "isRequired": true,
+    "content": {
+      "normativeRef": "Arts. 13 y 14, Res. 2674 de 2013",
+      "summary": "La dotación protege al manipulador y al alimento. El uniforme debe ser de color claro, sin bolsillos externos al frente; cofia, calzado exclusivo y tapabocas según riesgo. El artículo 13 prohíbe fumar, escupir, masticar chicle, joyería y manipular con heridas sin protección.",
+      "keyPoints": [
+        "Uniforme color claro para evidenciar suciedad",
+        "Cofia cubre cabello; calzado impermeable de uso exclusivo",
+        "Prohibido fumar, escupir y masticar chicle en áreas de alimentos",
+        "Prohibida joyería: anillos, pulseras, reloj, aretes, piercings",
+        "Ingreso con ropa de calle sin cambio de dotación está prohibido"
+      ],
+      "technicalNote": "Un error frecuente es considerar que el uso de guantes exime al manipulador del lavado de manos. Los guantes se contaminan en su superficie exterior de la misma manera que la piel desnuda.",
+      "hasInterludedQuestion": true,
+      "questionId": null,
+      "questionIds": ["q_p6i", "q_p7i"]
+    }
+  },
+  {
+    "blockId": "b06_modulo_e",
+    "type": "theory",
+    "order": 6,
+    "title": "Enfermedades transmisibles y síntesis",
+    "isRequired": true,
+    "content": {
+      "normativeRef": "Art. 11, Res. 2674 de 2013; referencias FDA, CDC, OMS",
+      "summary": "S. aureus produce enterotoxinas termoestables; Salmonella puede transmitirse por portadores asintomáticos; hepatitis A tiene incubación de 15 a 50 días; Norovirus requiere solo 18 a 100 partículas virales para infectar.",
+      "keyPoints": [
+        "Enterotoxina estafilocóccica resiste 100°C durante 30 minutos",
+        "Dosis infecciosa S. aureus: 10⁵ a 10⁶ UFC/g para producir toxina",
+        "Salmonella: portadores asintomáticos 1 a 4 semanas tras infección",
+        "Hepatitis A: incubación 15 a 50 días; transmisión fecal-oral",
+        "Norovirus: dosis infecciosa 18 a 100 partículas virales"
+      ],
+      "technicalNote": "El cumplimiento normativo no garantiza por sí solo la inocuidad. La cultura de inocuidad es el factor diferenciador entre cumplir requisitos mínimos e incorporar la inocuidad como identidad operacional.",
+      "hasInterludedQuestion": true,
+      "questionId": "q_p8i",
+      "questionIds": null
+    }
+  },
+  {
+    "blockId": "b07_game",
+    "type": "game",
+    "order": 7,
+    "title": "Minijuego: Inspección de cocina",
+    "isRequired": true,
+    "content": {
+      "sceneName": "kitchen_hygiene_inspection",
+      "scenario": "Cocina de un establecimiento de preparación de alimentos. Debes identificar 6 incumplimientos de higiene personal relacionados con dotación, conductas prohibidas y estado de salud.",
+      "objective": "Encuentra los 6 errores de higiene personal en la escena antes de que se agote el tiempo.",
+      "totalErrors": 6,
+      "errors": [
+        {
+          "errorId": "err_joyeria",
+          "description": "Manipulador con anillo y pulsera durante la preparación de alimentos",
+          "normativeRef": "Art. 13, num. 3, Res. 2674 de 2013",
+          "feedbackText": "La joyería acumula microbiota en superficies irregulares y puede desprenderse en el alimento como cuerpo extraño. Está expresamente prohibida durante la manipulación."
+        },
+        {
+          "errorId": "err_fumar",
+          "description": "Manipulador fumando dentro del área de producción",
+          "normativeRef": "Art. 13, num. 3, Res. 2674 de 2013",
+          "feedbackText": "Fumar en áreas de producción, procesamiento o almacenamiento de alimentos está expresamente prohibido por la norma."
+        },
+        {
+          "errorId": "err_chicle",
+          "description": "Manipulador masticando chicle en el área de proceso",
+          "normativeRef": "Art. 13, num. 3, Res. 2674 de 2013",
+          "feedbackText": "Masticar chicle, comer o beber fuera de las áreas designadas está prohibido durante la manipulación de alimentos."
+        },
+        {
+          "errorId": "err_ropa_calle",
+          "description": "Manipulador con chaqueta de calle sobre el uniforme en zona de proceso",
+          "normativeRef": "Art. 13, num. 3, Res. 2674 de 2013",
+          "feedbackText": "Ingresar con ropa de calle al área de proceso sin haber realizado el cambio de dotación está prohibido."
+        },
+        {
+          "errorId": "err_herida",
+          "description": "Manipulador con herida abierta en la mano sin vendaje impermeable ni guante",
+          "normativeRef": "Art. 11, Res. 2674 de 2013",
+          "feedbackText": "Las lesiones dérmicas infectadas requieren retiro o cobertura hermética con vendaje impermeable y guante. S. aureus coloniza frecuentemente estas lesiones."
+        },
+        {
+          "errorId": "err_sin_cofia",
+          "description": "Manipulador sin gorro o cofia; cabello expuesto sobre zona de alimentos",
+          "normativeRef": "Art. 14, Res. 2674 de 2013",
+          "feedbackText": "El gorro o cofia debe cubrir completamente el cabello. El cabello es fuente de Staphylococcus spp. y puede caer sobre los alimentos."
+        }
+      ],
+      "scoring": {
+        "baseScore": 100,
+        "penaltyPerHint": 10,
+        "penaltyPerWrongClick": 5,
+        "passingScore": 60
+      },
+      "timeLimitSeconds": 180
+    }
+  },
+  {
+    "blockId": "b08_exam",
+    "type": "exam",
+    "order": 8,
+    "title": "Evaluación final — Lección 1",
+    "isRequired": true,
+    "content": {
+      "totalQuestions": 15,
+      "passingPercent": 70,
+      "randomize": true,
+      "showExplanationAfterAnswer": true,
+      "unlimitedAttempts": true
+    }
+  }
+]

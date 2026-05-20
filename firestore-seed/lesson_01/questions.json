@@ -1,0 +1,370 @@
+[
+  {
+    "questionId": "q_p1i",
+    "blockRef": "b02_modulo_a",
+    "questionType": "intercalada",
+    "order": 1,
+    "text": "Un manipulador llega a trabajar y refiere que tuvo diarrea durante la noche anterior, pero actualmente no presenta síntomas. ¿Cuál es la conducta correcta según la Resolución 2674 de 2013?",
+    "options": [
+      { "label": "A", "text": "Puede manipular alimentos normalmente, ya que no presenta síntomas activos.", "isCorrect": false },
+      { "label": "B", "text": "Debe ser retirado temporalmente del área de manipulación hasta obtener coprocultivo negativo.", "isCorrect": true },
+      { "label": "C", "text": "Puede trabajar si usa guantes.", "isCorrect": false },
+      { "label": "D", "text": "Puede manipular alimentos solo en áreas de almacenamiento, no de producción.", "isCorrect": false }
+    ],
+    "explanation": "La norma restringe la manipulación ante cualquier evidencia de enfermedad gastrointestinal reciente, incluyendo la condición de portador asintomático. La ausencia de síntomas activos no garantiza que el manipulador haya cesado de excretar el agente patógeno en heces.",
+    "normativeRef": "Art. 11, Res. 2674 de 2013",
+    "difficulty": "intermedia"
+  },
+  {
+    "questionId": "q_p2i",
+    "blockRef": "b03_modulo_b",
+    "questionType": "intercalada",
+    "order": 2,
+    "text": "¿Cuántas horas anuales de capacitación en Buenas Prácticas de Manufactura exige la Resolución 2674 de 2013 para los manipuladores de alimentos?",
+    "options": [
+      { "label": "A", "text": "5 horas", "isCorrect": false },
+      { "label": "B", "text": "8 horas", "isCorrect": false },
+      { "label": "C", "text": "10 horas", "isCorrect": true },
+      { "label": "D", "text": "20 horas", "isCorrect": false }
+    ],
+    "explanation": "El artículo 12 de la Resolución 2674 de 2013 establece explícitamente un mínimo de diez (10) horas anuales de capacitación en higiene de alimentos para cada manipulador.",
+    "normativeRef": "Art. 12, Res. 2674 de 2013",
+    "difficulty": "basica"
+  },
+  {
+    "questionId": "q_p3i",
+    "blockRef": "b04_modulo_c",
+    "questionType": "intercalada",
+    "order": 3,
+    "text": "¿Cuál de las siguientes afirmaciones describe correctamente la diferencia entre microbiota residente y microbiota transitoria en las manos de un manipulador?",
+    "options": [
+      { "label": "A", "text": "La microbiota residente es la más peligrosa porque incluye Salmonella y E. coli.", "isCorrect": false },
+      { "label": "B", "text": "La microbiota transitoria se adquiere por contacto y puede incluir patógenos alimentarios; se elimina eficazmente con el lavado correcto con agua y jabón.", "isCorrect": true },
+      { "label": "C", "text": "La microbiota transitoria es permanente y no puede eliminarse con el lavado de manos.", "isCorrect": false },
+      { "label": "D", "text": "Ambas microbiotas son igualmente resistentes al lavado de manos.", "isCorrect": false }
+    ],
+    "explanation": "La microbiota transitoria, a diferencia de la residente, se aloja superficialmente en la piel y puede incluir patógenos de alto riesgo (Salmonella, E. coli O157:H7, Listeria, Norovirus). Su ubicación superficial la hace susceptible a la eliminación mecánica mediante el lavado correcto.",
+    "normativeRef": "Art. 13, Res. 2674 de 2013",
+    "difficulty": "intermedia"
+  },
+  {
+    "questionId": "q_p4i",
+    "blockRef": "b04_modulo_c",
+    "questionType": "intercalada",
+    "order": 4,
+    "text": "Según la técnica de lavado de manos de la OMS, ¿cuál es la duración correcta del procedimiento completo con agua y jabón?",
+    "options": [
+      { "label": "A", "text": "10 a 20 segundos", "isCorrect": false },
+      { "label": "B", "text": "20 a 30 segundos", "isCorrect": false },
+      { "label": "C", "text": "40 a 60 segundos", "isCorrect": true },
+      { "label": "D", "text": "90 a 120 segundos", "isCorrect": false }
+    ],
+    "explanation": "La OMS establece que el lavado de manos con agua y jabón debe tener una duración de 40 a 60 segundos para ser efectivo. Un tiempo inferior compromete la eliminación mecánica de la microbiota transitoria.",
+    "normativeRef": "OMS, Guía de higiene de manos (2009)",
+    "difficulty": "basica"
+  },
+  {
+    "questionId": "q_p5i",
+    "blockRef": "b04_modulo_c",
+    "questionType": "intercalada",
+    "order": 5,
+    "text": "Un manipulador termina de separar porciones de pollo crudo y a continuación va a preparar ensalada de verduras cocidas. ¿Qué debe hacer antes de iniciar la segunda tarea?",
+    "options": [
+      { "label": "A", "text": "Cambiar de guantes sin necesidad de lavar las manos.", "isCorrect": false },
+      { "label": "B", "text": "Enjuagar las manos con agua fría.", "isCorrect": false },
+      { "label": "C", "text": "Lavar las manos con la técnica correcta y luego ponerse guantes limpios si es requerido.", "isCorrect": true },
+      { "label": "D", "text": "Usar desinfectante de manos a base de alcohol como única medida.", "isCorrect": false }
+    ],
+    "explanation": "Después de manipular alimentos crudos de origen animal, el lavado de manos con agua y jabón es obligatorio antes de tocar alimentos listos para consumo. El alcohol por sí solo no es suficiente cuando hay presencia de materia orgánica (sangre, jugos de carnes). Los guantes no sustituyen el lavado.",
+    "normativeRef": "Art. 13, Res. 2674 de 2013",
+    "difficulty": "intermedia"
+  },
+  {
+    "questionId": "q_p6i",
+    "blockRef": "b05_modulo_d",
+    "questionType": "intercalada",
+    "order": 6,
+    "text": "¿Por qué se recomienda que el uniforme del manipulador de alimentos sea de color claro?",
+    "options": [
+      { "label": "A", "text": "Para facilitar la identificación del personal dentro del establecimiento.", "isCorrect": false },
+      { "label": "B", "text": "Porque los colores claros son más resistentes a los productos de limpieza.", "isCorrect": false },
+      { "label": "C", "text": "Porque permite identificar visualmente la suciedad, indicando cuándo el uniforme debe ser cambiado o lavado.", "isCorrect": true },
+      { "label": "D", "text": "Es una preferencia estética sin fundamento técnico.", "isCorrect": false }
+    ],
+    "explanation": "Los colores claros facilitan la detección visual de manchas y contaminantes sobre el uniforme, lo que permite identificar oportunamente cuándo la dotación está comprometida y debe ser reemplazada. Los colores oscuros enmascaran la suciedad y pueden llevar a continuar usando uniforme contaminado.",
+    "normativeRef": "Art. 14, Res. 2674 de 2013",
+    "difficulty": "basica"
+  },
+  {
+    "questionId": "q_p7i",
+    "blockRef": "b05_modulo_d",
+    "questionType": "intercalada",
+    "order": 7,
+    "text": "¿Por qué la toxina de Staphylococcus aureus en un alimento contaminado representa un peligro incluso si el alimento es sometido a cocción posterior?",
+    "options": [
+      { "label": "A", "text": "Porque S. aureus forma esporas que sobreviven a la cocción.", "isCorrect": false },
+      { "label": "B", "text": "Porque la enterotoxina estafilocóccica es termoestable y no se inactiva con tratamiento térmico convencional.", "isCorrect": true },
+      { "label": "C", "text": "Porque S. aureus crece más rápido durante la cocción.", "isCorrect": false },
+      { "label": "D", "text": "No representa riesgo si el alimento es cocinado correctamente.", "isCorrect": false }
+    ],
+    "explanation": "Las enterotoxinas estafilocóccicas son proteínas termoestables que resisten temperaturas de hasta 100°C durante 30 minutos. Una vez producidas en el alimento, la cocción elimina la bacteria pero no destruye la toxina. Por ello, el control debe realizarse antes de la producción de toxina, evitando la contaminación del alimento y su mantenimiento en temperaturas de riesgo.",
+    "normativeRef": "Art. 11, Res. 2674 de 2013",
+    "difficulty": "avanzada"
+  },
+  {
+    "questionId": "q_p8i",
+    "blockRef": "b06_modulo_e",
+    "questionType": "intercalada",
+    "order": 8,
+    "text": "Una empresa procesadora de alimentos tiene a un manipulador que muestra síntomas de faringoamigdalitis bacteriana (fiebre, odinofagia, exudado amigdalino). ¿Cuál de las siguientes acciones es la más adecuada según la Resolución 2674 de 2013?",
+    "options": [
+      { "label": "A", "text": "Permitirle continuar trabajando con tapabocas de alta filtración.", "isCorrect": false },
+      { "label": "B", "text": "Asignarlo a labores administrativas que no impliquen contacto con alimentos.", "isCorrect": false },
+      { "label": "C", "text": "Retirarlo temporalmente del área de manipulación hasta que reciba tratamiento médico y se recupere.", "isCorrect": true },
+      { "label": "D", "text": "Permitirle manipular solo alimentos que van a ser cocinados posteriormente.", "isCorrect": false }
+    ],
+    "explanation": "La norma establece la restricción de manipular alimentos ante enfermedades infecciosas activas, incluyendo las del tracto respiratorio superior. Las opciones A y D no eliminan el riesgo de contaminación por gotículas. La opción B puede ser válida como medida parcial, pero no garantiza ausencia de contacto con áreas o superficies en contacto con alimentos.",
+    "normativeRef": "Art. 11, Res. 2674 de 2013",
+    "difficulty": "intermedia"
+  },
+  {
+    "questionId": "q_e01",
+    "blockRef": "b08_exam",
+    "questionType": "evaluacion_final",
+    "order": 1,
+    "text": "¿Con qué frecuencia mínima deben realizarse los exámenes médicos periódicos a los manipuladores de alimentos según las buenas prácticas del sector en Colombia?",
+    "options": [
+      { "label": "A", "text": "Cada seis meses", "isCorrect": false },
+      { "label": "B", "text": "Anualmente", "isCorrect": true },
+      { "label": "C", "text": "Cada dos años", "isCorrect": false },
+      { "label": "D", "text": "Solo al ingreso", "isCorrect": false }
+    ],
+    "explanation": "Aunque la Resolución 2674 no fija la periodicidad exacta, la práctica estándar avalada por INVIMA y el sector es la realización de exámenes médicos con frecuencia mínima anual, o antes si hay cambio de condición de salud.",
+    "normativeRef": "Art. 11, Res. 2674 de 2013",
+    "difficulty": "basica"
+  },
+  {
+    "questionId": "q_e02",
+    "blockRef": "b08_exam",
+    "questionType": "evaluacion_final",
+    "order": 2,
+    "text": "¿Cuál de los siguientes microorganismos puede ser transmitido al alimento por un manipulador portador asintomático, sin que este presente síntomas de enfermedad?",
+    "options": [
+      { "label": "A", "text": "Clostridium botulinum", "isCorrect": false },
+      { "label": "B", "text": "Salmonella enterica", "isCorrect": true },
+      { "label": "C", "text": "Bacillus cereus", "isCorrect": false },
+      { "label": "D", "text": "Aspergillus flavus", "isCorrect": false }
+    ],
+    "explanation": "Salmonella enterica puede permanecer en el tracto intestinal de individuos recuperados clínicamente (portadores asintomáticos) durante semanas, siendo excretada en heces sin que el individuo presente síntomas. Clostridium botulinum y Bacillus cereus son principalmente de origen ambiental; Aspergillus flavus es un hongo que no se transmite por portadores humanos.",
+    "normativeRef": "Art. 11, Res. 2674 de 2013",
+    "difficulty": "intermedia"
+  },
+  {
+    "questionId": "q_e03",
+    "blockRef": "b08_exam",
+    "questionType": "evaluacion_final",
+    "order": 3,
+    "text": "Según el artículo 12 de la Resolución 2674 de 2013, ¿cuál es la intensidad mínima de capacitación en BPM que debe recibir un manipulador de alimentos anualmente?",
+    "options": [
+      { "label": "A", "text": "5 horas", "isCorrect": false },
+      { "label": "B", "text": "8 horas", "isCorrect": false },
+      { "label": "C", "text": "10 horas", "isCorrect": true },
+      { "label": "D", "text": "16 horas", "isCorrect": false }
+    ],
+    "explanation": "El artículo 12 de la Resolución 2674 establece explícitamente un mínimo de diez (10) horas anuales de capacitación para cada manipulador de alimentos.",
+    "normativeRef": "Art. 12, Res. 2674 de 2013",
+    "difficulty": "basica"
+  },
+  {
+    "questionId": "q_e04",
+    "blockRef": "b08_exam",
+    "questionType": "evaluacion_final",
+    "order": 4,
+    "text": "¿Cuál es la diferencia fundamental entre la microbiota residente y la microbiota transitoria de las manos de un manipulador de alimentos?",
+    "options": [
+      { "label": "A", "text": "La residente incluye patógenos alimentarios; la transitoria es inofensiva.", "isCorrect": false },
+      { "label": "B", "text": "La residente es permanente y superficial; la transitoria es profunda y difícil de eliminar.", "isCorrect": false },
+      { "label": "C", "text": "La transitoria se adquiere por contacto con superficies o materiales contaminados y puede incluir patógenos; se elimina eficazmente con el lavado con agua y jabón.", "isCorrect": true },
+      { "label": "D", "text": "No existe diferencia práctica; ambas se eliminan solo con desinfectantes.", "isCorrect": false }
+    ],
+    "explanation": "La microbiota transitoria es adquirida por contacto ambiental, se aloja superficialmente en la piel y puede incluir patógenos de alta relevancia. Su ubicación superficial la hace susceptible a la eliminación por lavado mecánico correcto. La microbiota residente es más profunda y estable, y generalmente no incluye patógenos alimentarios de importancia.",
+    "normativeRef": "Art. 13, Res. 2674 de 2013",
+    "difficulty": "intermedia"
+  },
+  {
+    "questionId": "q_e05",
+    "blockRef": "b08_exam",
+    "questionType": "evaluacion_final",
+    "order": 5,
+    "text": "¿Cuánto tiempo debe durar el lavado de manos con agua y jabón para ser efectivo según el protocolo de la OMS?",
+    "options": [
+      { "label": "A", "text": "10 segundos", "isCorrect": false },
+      { "label": "B", "text": "20 a 30 segundos", "isCorrect": false },
+      { "label": "C", "text": "40 a 60 segundos", "isCorrect": true },
+      { "label": "D", "text": "2 a 3 minutos", "isCorrect": false }
+    ],
+    "explanation": "La OMS establece que la técnica completa de lavado de manos con agua y jabón debe tener una duración de 40 a 60 segundos. Tiempos inferiores son insuficientes para la eliminación mecánica eficaz de la microbiota transitoria.",
+    "normativeRef": "OMS, Guía de higiene de manos (2009)",
+    "difficulty": "basica"
+  },
+  {
+    "questionId": "q_e06",
+    "blockRef": "b08_exam",
+    "questionType": "evaluacion_final",
+    "order": 6,
+    "text": "Un manipulador de alimentos tiene una lesión cutánea infectada (forúnculo) en la mano derecha. ¿Cuál es la medida más adecuada según la normativa colombiana?",
+    "options": [
+      { "label": "A", "text": "Puede seguir manipulando alimentos si usa guante en la mano afectada.", "isCorrect": false },
+      { "label": "B", "text": "Debe ser retirado de la manipulación directa de alimentos hasta la resolución de la lesión.", "isCorrect": true },
+      { "label": "C", "text": "Puede manipular alimentos solo si la lesión está seca.", "isCorrect": false },
+      { "label": "D", "text": "No hay restricción si el manipulador lava sus manos frecuentemente.", "isCorrect": false }
+    ],
+    "explanation": "El artículo 11 de la Resolución 2674 establece la restricción de manipular alimentos ante lesiones dérmicas infectadas. S. aureus coloniza frecuentemente estas lesiones y puede contaminar el alimento directamente por contacto o mediante el exudado. El retiro temporal es la medida correcta.",
+    "normativeRef": "Art. 11, Res. 2674 de 2013",
+    "difficulty": "intermedia"
+  },
+  {
+    "questionId": "q_e07",
+    "blockRef": "b08_exam",
+    "questionType": "evaluacion_final",
+    "order": 7,
+    "text": "¿Por qué está prohibido el uso de anillos, pulseras y reloj durante la manipulación de alimentos?",
+    "options": [
+      { "label": "A", "text": "Por razones estéticas establecidas por el reglamento interno de las empresas.", "isCorrect": false },
+      { "label": "B", "text": "Porque acumulan microbiota en su superficie y pueden caer accidentalmente en el alimento como cuerpo extraño.", "isCorrect": true },
+      { "label": "C", "text": "Porque interfieren con el uso correcto de los guantes.", "isCorrect": false },
+      { "label": "D", "text": "Porque los materiales de joyería reaccionan químicamente con los alimentos.", "isCorrect": false }
+    ],
+    "explanation": "Los objetos de joyería presentan superficies irregulares que acumulan microbiota de difícil remoción durante el lavado de manos, representando un riesgo microbiológico. Adicionalmente, pueden desprenderse durante la manipulación y constituir un peligro físico (cuerpo extraño) en el alimento.",
+    "normativeRef": "Art. 13, num. 3, Res. 2674 de 2013",
+    "difficulty": "basica"
+  },
+  {
+    "questionId": "q_e08",
+    "blockRef": "b08_exam",
+    "questionType": "evaluacion_final",
+    "order": 8,
+    "text": "¿Cuál es el propósito principal del gorro o cofia dentro del equipo de dotación del manipulador de alimentos?",
+    "options": [
+      { "label": "A", "text": "Proteger el cabello del manipulador de la humedad del proceso.", "isCorrect": false },
+      { "label": "B", "text": "Prevenir la caída de cabellos sobre el alimento y retener la descamación cutánea del cuero cabelludo.", "isCorrect": true },
+      { "label": "C", "text": "Facilitar la identificación del cargo del manipulador.", "isCorrect": false },
+      { "label": "D", "text": "Proteger al manipulador de vapores y aromas del proceso.", "isCorrect": false }
+    ],
+    "explanation": "El cabello es fuente de Staphylococcus spp. y puede constituir un cuerpo extraño (peligro físico) en el alimento. La cofia contiene el cabello, impide su caída sobre los alimentos y retiene adicionalmente la descamación cutánea del cuero cabelludo, que puede contener microorganismos.",
+    "normativeRef": "Art. 14, Res. 2674 de 2013",
+    "difficulty": "basica"
+  },
+  {
+    "questionId": "q_e09",
+    "blockRef": "b08_exam",
+    "questionType": "evaluacion_final",
+    "order": 9,
+    "text": "Un establecimiento de preparación de alimentos detecta que uno de sus manipuladores fue diagnosticado con hepatitis A. ¿Cuál es el período de incubación de esta enfermedad que complica la identificación del brote?",
+    "options": [
+      { "label": "A", "text": "1 a 6 horas", "isCorrect": false },
+      { "label": "B", "text": "6 a 24 horas", "isCorrect": false },
+      { "label": "C", "text": "15 a 50 días", "isCorrect": true },
+      { "label": "D", "text": "3 a 5 días", "isCorrect": false }
+    ],
+    "explanation": "El período de incubación del virus de la hepatitis A (VHA) es de 15 a 50 días (promedio 28 días), lo que dificulta significativamente la asociación epidemiológica entre el caso clínico y el momento de la exposición al alimento contaminado.",
+    "normativeRef": "Art. 11, Res. 2674 de 2013",
+    "difficulty": "intermedia"
+  },
+  {
+    "questionId": "q_e10",
+    "blockRef": "b08_exam",
+    "questionType": "evaluacion_final",
+    "order": 10,
+    "text": "¿Cuál de los siguientes agentes infecciosos tiene la dosis infecciosa más baja, representando el mayor riesgo de transmisión a través de manos contaminadas?",
+    "options": [
+      { "label": "A", "text": "Salmonella enterica (10³ a 10⁸ UFC)", "isCorrect": false },
+      { "label": "B", "text": "Staphylococcus aureus (10⁵ a 10⁶ UFC/g para producir toxina)", "isCorrect": false },
+      { "label": "C", "text": "Norovirus (18 a 100 partículas virales)", "isCorrect": true },
+      { "label": "D", "text": "Escherichia coli (10⁴ a 10⁶ UFC)", "isCorrect": false }
+    ],
+    "explanation": "El Norovirus requiere una dosis infecciosa de tan solo 18 a 100 partículas virales para producir infección, lo que lo convierte en el agente de mayor riesgo en términos de transmisibilidad mediante contacto de manos. Por comparación, Salmonella requiere millones de bacterias en individuos inmunocompetentes.",
+    "normativeRef": "Art. 11, Res. 2674 de 2013",
+    "difficulty": "avanzada"
+  },
+  {
+    "questionId": "q_e11",
+    "blockRef": "b08_exam",
+    "questionType": "evaluacion_final",
+    "order": 11,
+    "text": "¿Cuál de las siguientes conductas está expresamente prohibida por el artículo 13 de la Resolución 2674 de 2013 durante la manipulación de alimentos?",
+    "options": [
+      { "label": "A", "text": "Usar tapabocas en áreas de procesamiento.", "isCorrect": false },
+      { "label": "B", "text": "Ingresar al baño con el uniforme de trabajo.", "isCorrect": false },
+      { "label": "C", "text": "Masticar chicle dentro del área de producción.", "isCorrect": true },
+      { "label": "D", "text": "Realizar el lavado de manos antes de iniciar el turno.", "isCorrect": false }
+    ],
+    "explanation": "El artículo 13, numeral 3 de la Resolución 2674 de 2013 prohíbe expresamente masticar chicle, comer o beber fuera de las áreas designadas para ello durante la manipulación de alimentos. La opción B (ingresar al baño con uniforme) no está explícitamente prohibida en el artículo 13, aunque es una mala práctica que debe regularse internamente.",
+    "normativeRef": "Art. 13, num. 3, Res. 2674 de 2013",
+    "difficulty": "basica"
+  },
+  {
+    "questionId": "q_e12",
+    "blockRef": "b08_exam",
+    "questionType": "evaluacion_final",
+    "order": 12,
+    "text": "¿En cuál de los siguientes momentos NO es obligatorio el lavado de manos según las buenas prácticas de manipulación?",
+    "options": [
+      { "label": "A", "text": "Después de usar el baño.", "isCorrect": false },
+      { "label": "B", "text": "Al ingresar al área de producción.", "isCorrect": false },
+      { "label": "C", "text": "Después de tocar dinero o teléfonos.", "isCorrect": false },
+      { "label": "D", "text": "Después de cambiar de uniforme limpio.", "isCorrect": true }
+    ],
+    "explanation": "El cambio de uniforme limpio no constituye un evento de contaminación que requiera lavado de manos inmediato. Sin embargo, si el cambio implica contacto con ropa de calle sucia, sí es necesario lavar las manos. Los otros tres momentos (A, B, C) están definidos como críticos y requieren lavado de manos.",
+    "normativeRef": "Art. 13, Res. 2674 de 2013",
+    "difficulty": "intermedia"
+  },
+  {
+    "questionId": "q_e13",
+    "blockRef": "b08_exam",
+    "questionType": "evaluacion_final",
+    "order": 13,
+    "text": "¿Por qué la enterotoxina de Staphylococcus aureus representa un riesgo incluso en alimentos que han sido sometidos a cocción?",
+    "options": [
+      { "label": "A", "text": "Porque la bacteria forma esporas resistentes al calor.", "isCorrect": false },
+      { "label": "B", "text": "Porque la toxina se produce durante el enfriamiento del alimento ya cocinado.", "isCorrect": false },
+      { "label": "C", "text": "Porque las enterotoxinas estafilocóccicas son proteínas termoestables que resisten la cocción convencional.", "isCorrect": true },
+      { "label": "D", "text": "Porque el tratamiento térmico activa la toxina.", "isCorrect": false }
+    ],
+    "explanation": "Las enterotoxinas estafilocóccicas (SE) son proteínas termoestables que resisten temperaturas de 100°C durante 30 minutos. Si la bacteria contaminó el alimento y se multiplicó hasta producir toxina antes de la cocción, esta permanecerá activa en el alimento cocinado. La bacteria en sí es destruida, pero la toxina no.",
+    "normativeRef": "Art. 11, Res. 2674 de 2013",
+    "difficulty": "avanzada"
+  },
+  {
+    "questionId": "q_e14",
+    "blockRef": "b08_exam",
+    "questionType": "evaluacion_final",
+    "order": 14,
+    "text": "¿Cuáles son los componentes mínimos que debe incluir el registro documental de una sesión de capacitación en BPM para los manipuladores de alimentos?",
+    "options": [
+      { "label": "A", "text": "Solo la lista de asistencia con nombres y firmas.", "isCorrect": false },
+      { "label": "B", "text": "Fecha, tema, nombre del capacitador, lista de asistencia con firmas y resultados de evaluación de efectividad.", "isCorrect": true },
+      { "label": "C", "text": "El diploma del capacitador y el contenido presentado.", "isCorrect": false },
+      { "label": "D", "text": "La evaluación de efectividad y el plan anual de capacitación.", "isCorrect": false }
+    ],
+    "explanation": "Los registros mínimos de capacitación para verificación sanitaria incluyen: fecha y hora, tema desarrollado, nombre e identificación del capacitador, lista de asistencia con nombre, cargo, identificación y firma de cada participante, y evidencia de evaluación de la efectividad del aprendizaje.",
+    "normativeRef": "Art. 12, Res. 2674 de 2013",
+    "difficulty": "intermedia"
+  },
+  {
+    "questionId": "q_e15",
+    "blockRef": "b08_exam",
+    "questionType": "evaluacion_final",
+    "order": 15,
+    "text": "Un manipulador de alimentos, después de manipular carne de pollo cruda, se aplica gel desinfectante de manos a base de alcohol al 70% y procede a preparar ensalada de frutas. ¿Esta conducta es correcta?",
+    "options": [
+      { "label": "A", "text": "Sí, el alcohol al 70% elimina todos los microorganismos presentes en las manos.", "isCorrect": false },
+      { "label": "B", "text": "No, porque debió lavarse las manos con agua y jabón primero, ya que el alcohol no penetra la materia orgánica residual.", "isCorrect": true },
+      { "label": "C", "text": "Sí, si aplica suficiente cantidad de gel y fricciona por más de 60 segundos.", "isCorrect": false },
+      { "label": "D", "text": "Sí, si el pollo tenía certificado sanitario.", "isCorrect": false }
+    ],
+    "explanation": "El alcohol a base de gel o solución es un complemento, no un sustituto del lavado con agua y jabón cuando hay presencia de materia orgánica (sangre, jugos de carnes). La materia orgánica reduce significativamente la eficacia del alcohol, al bloquear el contacto directo del agente con los microorganismos. En presencia de materia orgánica visible, el lavado con agua y jabón es el paso indispensable.",
+    "normativeRef": "Art. 13, Res. 2674 de 2013",
+    "difficulty": "avanzada"
+  }
+]

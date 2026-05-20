@@ -11,7 +11,11 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: 'Dashboard', href: '/ruta', icon: <LayoutDashboard className="w-5 h-5" /> },
   { label: 'Learning Path', href: '/ruta', icon: <GraduationCap className="w-5 h-5" /> },
-  { label: 'Assessments', href: '/evaluacion', icon: <ClipboardCheck className="w-5 h-5" /> },
+  {
+    label: 'Assessments',
+    href: '/leccion/lesson_01_higiene_personal/evaluacion',
+    icon: <ClipboardCheck className="w-5 h-5" />,
+  },
   { label: 'Certificates', href: '/certificado', icon: <Award className="w-5 h-5" /> },
   { label: 'Settings', href: '#', icon: <Settings className="w-5 h-5" /> },
 ]
