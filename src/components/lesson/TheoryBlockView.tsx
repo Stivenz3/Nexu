@@ -4,9 +4,14 @@ import type { TheoryBlockContent } from '@/types/lesson'
 interface TheoryBlockViewProps {
   content: TheoryBlockContent
   onContinue: () => void
+  reviewMode?: boolean
 }
 
-export function TheoryBlockView({ content, onContinue }: TheoryBlockViewProps) {
+export function TheoryBlockView({
+  content,
+  onContinue,
+  reviewMode = false,
+}: TheoryBlockViewProps) {
   return (
     <div className="space-y-6 max-w-4xl">
       <p className="text-label-caps text-primary">{content.normativeRef}</p>
@@ -34,7 +39,13 @@ export function TheoryBlockView({ content, onContinue }: TheoryBlockViewProps) {
 
       <div className="flex justify-end">
         <Button onClick={onContinue}>
-          {content.hasInterludedQuestion ? 'Ir a la pregunta' : 'Continuar'}
+          {reviewMode
+            ? content.hasInterludedQuestion
+              ? 'Ver pregunta de repaso'
+              : 'Listo'
+            : content.hasInterludedQuestion
+              ? 'Ir a la pregunta'
+              : 'Continuar'}
         </Button>
       </div>
     </div>

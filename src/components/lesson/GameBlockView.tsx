@@ -5,9 +5,14 @@ import type { GameBlockContent } from '@/types/lesson'
 interface GameBlockViewProps {
   content: GameBlockContent
   onComplete: (score: number, errorsFound: number) => void
+  reviewMode?: boolean
 }
 
-export function GameBlockView({ content, onComplete }: GameBlockViewProps) {
+export function GameBlockView({
+  content,
+  onComplete,
+  reviewMode = false,
+}: GameBlockViewProps) {
   const [found, setFound] = useState<Set<string>>(new Set())
   const [wrongClicks, setWrongClicks] = useState(0)
   const [hintsUsed, setHintsUsed] = useState(0)
@@ -94,11 +99,13 @@ export function GameBlockView({ content, onComplete }: GameBlockViewProps) {
         </div>
       </Card>
 
-      <div className="flex justify-end">
-        <Button onClick={handleFinish} disabled={!allFound}>
-          {allFound ? 'Completar minijuego' : `Faltan ${content.totalErrors - found.size} errores`}
-        </Button>
-      </div>
+      {!reviewMode && (
+        <div className="flex justify-end">
+          <Button onClick={handleFinish} disabled={!allFound}>
+            {allFound ? 'Completar minijuego' : `Faltan ${content.totalErrors - found.size} errores`}
+          </Button>
+        </div>
+      )}
     </div>
   )
 }

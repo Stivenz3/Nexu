@@ -5,6 +5,7 @@ import type { VideoBlockContent } from '@/types/lesson'
 interface VideoBlockViewProps {
   content: VideoBlockContent
   onComplete: () => void
+  reviewMode?: boolean
 }
 
 function toEmbedUrl(url: string): string {
@@ -14,7 +15,11 @@ function toEmbedUrl(url: string): string {
   return url
 }
 
-export function VideoBlockView({ content, onComplete }: VideoBlockViewProps) {
+export function VideoBlockView({
+  content,
+  onComplete,
+  reviewMode = false,
+}: VideoBlockViewProps) {
   const [canContinue, setCanContinue] = useState(content.minWatchPercent <= 0)
 
   return (
@@ -42,11 +47,13 @@ export function VideoBlockView({ content, onComplete }: VideoBlockViewProps) {
           Marcar video como visto (desarrollo)
         </Button>
       )}
-      <div className="flex justify-end">
-        <Button disabled={!canContinue} onClick={onComplete}>
-          Continuar
-        </Button>
-      </div>
+      {!reviewMode && (
+        <div className="flex justify-end">
+          <Button disabled={!canContinue} onClick={onComplete}>
+            Continuar
+          </Button>
+        </div>
+      )}
     </div>
   )
 }

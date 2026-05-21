@@ -5,9 +5,14 @@ import type { LessonQuestion } from '@/types/lesson'
 interface InlineQuestionViewProps {
   question: LessonQuestion
   onAnswered: (correct: boolean) => void
+  reviewMode?: boolean
 }
 
-export function InlineQuestionView({ question, onAnswered }: InlineQuestionViewProps) {
+export function InlineQuestionView({
+  question,
+  onAnswered,
+  reviewMode = false,
+}: InlineQuestionViewProps) {
   const [selected, setSelected] = useState<string | null>(null)
   const [submitted, setSubmitted] = useState(false)
 
@@ -22,7 +27,9 @@ export function InlineQuestionView({ question, onAnswered }: InlineQuestionViewP
 
   return (
     <Card padding="lg" className="max-w-3xl">
-      <p className="text-label-caps text-primary mb-2">Pregunta de comprensión</p>
+      <p className="text-label-caps text-primary mb-2">
+        {reviewMode ? 'Repaso — pregunta' : 'Pregunta de comprensión'}
+      </p>
       <h3 className="text-body-lg font-medium text-foreground mb-6">{question.text}</h3>
 
       <RadioGroup
@@ -51,7 +58,9 @@ export function InlineQuestionView({ question, onAnswered }: InlineQuestionViewP
             Confirmar respuesta
           </Button>
         ) : (
-          <Button onClick={() => onAnswered(selected === correctLabel)}>Continuar</Button>
+          <Button onClick={() => onAnswered(selected === correctLabel)}>
+            {reviewMode ? 'Siguiente / volver al mapa' : 'Continuar'}
+          </Button>
         )}
       </div>
     </Card>

@@ -174,10 +174,51 @@ export function isBlockUnlocked(
   blockIndex: number
 ): boolean {
   if (blockIndex === 0) return true
-  if (!progress) return blockIndex === 0
+  if (!progress) return false
   const prevBlock = blocks[blockIndex - 1]
   const prevProgress = progress.blocksProgress[prevBlock.blockId]
   return Boolean(prevProgress?.completed)
+}
+
+/** Acceso lineal o repaso de un bloque ya completado; examen si todo el contenido está hecho. */
+export function canNavigateToBlock(
+  blocks: LessonBlock[],
+  progress: LessonProgress | null,
+  blockIndex: number
+): boolean {
+  const block = blocks[blockIndex]
+  if (!block) return false
+  if (!progress) return blockIndex === 0
+
+  if (progress.blocksProgress[block.blockId]?.completed) return true
+
+  if (block.type === 'exam') {
+    return isExamUnlocked(blocks, progress)
+  }
+
+  return isBlockUnlocked(blocks, progress, blockIndex)
+}
+
+/** Todos los bloques excepto el de tipo `exam` deben estar completados. */
+export function isExamUnlocked(
+  blocks: LessonBlock[],
+  progress: LessonProgress | null
+): boolean {
+  if (!progress) return false
+  const contentBlocks = blocks.filter((b) => b.type !== 'exam')
+  if (contentBlocks.length === 0) return false
+  return contentBlocks.every((b) => progress.blocksProgress[b.blockId]?.completed === true)
+}
+
+export async function canAccessFinalExam(
+  userId: string,
+  lessonId: string
+): Promise<boolean> {
+  const [blocks, progress] = await Promise.all([
+    fetchLessonBlocks(lessonId),
+    fetchLessonProgress(userId, lessonId),
+  ])
+  return isExamUnlocked(blocks, progress)
 }
 
 /** Última lección desbloqueada en la ruta (misma lógica que LearningPathPage). */
