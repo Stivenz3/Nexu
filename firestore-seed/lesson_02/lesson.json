@@ -1,0 +1,10 @@
+{
+  "lessonId": "lesson_02_REEMPLAZAR",
+  "title": "Título de la lección 2 (desde PDF técnico)",
+  "order": 2,
+  "normativeBase": "Resolución 2674 de 2013 — completar según módulo",
+  "passingScore": 70,
+  "estimatedMinutes": 60,
+  "isActive": false,
+  "totalBlocks": 0
+}
