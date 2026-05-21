@@ -5,6 +5,7 @@
 @layer base {
   html {
     @apply bg-surface;
+    --sidebar-width: 15rem;
   }
 
   body {

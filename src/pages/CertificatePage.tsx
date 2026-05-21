@@ -1,164 +1,178 @@
-import { Award, Download, Share2, Info } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { Award, Download, Share2, Info, Loader2 } from 'lucide-react'
 import { AppLayout } from '@/components/layout'
+import {
+  CertificateDocument,
+  CERTIFICATE_DOCUMENT_ID,
+} from '@/components/certificate/CertificateDocument'
 import { Card, Button } from '@/components/ui'
 import { useAuth } from '@/contexts/AuthContext'
-import type { Certificate } from '@/types'
+import { downloadCertificatePdf } from '@/lib/certificatePdf'
+import {
+  getCertificateById,
+  getUserCertificates,
+} from '@/services/certificateService'
+import type { CertificateView } from '@/types/certificate'
 
-function CertificatePreview({ certificate }: { certificate: Certificate }) {
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('es-CO', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    })
+function ActionsCard({
+  certificate,
+  onDownload,
+  downloading,
+}: {
+  certificate: CertificateView
+  onDownload: () => void
+  downloading: boolean
+}) {
+  const handleShare = async () => {
+    const text = `Certificado Nexu — ${certificate.lessonTitle}. Verificar: ${certificate.qrVerifyUrl}`
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Certificado Nexu',
+          text,
+          url: certificate.qrVerifyUrl,
+        })
+      } catch {
+        /* usuario canceló */
+      }
+    } else {
+      await navigator.clipboard.writeText(certificate.qrVerifyUrl)
+      alert('Enlace de verificación copiado al portapapeles.')
+    }
   }
 
-  const cert = certificate
-
   return (
-    <Card padding="none" className="overflow-hidden">
-      {/* Certificate document */}
-      <div className="bg-white p-8 border-b border-outline-variant/30">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h2 className="text-h2 font-bold text-primary mb-4">Nexu</h2>
-          <div className="w-20 h-20 mx-auto mb-4 rounded-full border-2 border-primary flex items-center justify-center">
-            <Award className="w-10 h-10 text-primary" />
-          </div>
-          <p className="text-label-caps uppercase tracking-widest text-primary mb-2">
-            Certificado de Aprobacion
-          </p>
-          <p className="text-body-md text-foreground">
-            {cert.courseName} - {cert.courseModule}
-          </p>
-        </div>
+    <Card padding="lg" className="sticky top-24">
+      <h3 className="text-body-md font-semibold text-foreground mb-2">
+        Gestión de logro
+      </h3>
+      <p className="text-body-sm text-foreground-muted mb-6">
+        Descarga tu certificado en PDF o comparte el enlace público de verificación.
+      </p>
 
-        {/* Recipient */}
-        <div className="text-center mb-8">
-          <p className="text-body-sm text-foreground-muted italic mb-2">
-            Este documento certifica que
-          </p>
-          <h3 className="text-h1 text-primary font-bold">
-            {cert.userName}
-          </h3>
-        </div>
+      <div className="space-y-3 mb-6">
+        <Button
+          className="w-full justify-center gap-2"
+          onClick={onDownload}
+          disabled={downloading}
+        >
+          {downloading ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <Download className="w-4 h-4" />
+          )}
+          Descargar PDF
+        </Button>
+        <Button variant="outline" className="w-full justify-center gap-2" onClick={handleShare}>
+          <Share2 className="w-4 h-4" />
+          Compartir verificación
+        </Button>
+      </div>
 
-        {/* Details grid */}
-        <div className="grid grid-cols-4 gap-4 mb-8 text-center">
+      <div className="bg-primary rounded-lg p-4 text-white mb-4">
+        <div className="flex items-start gap-3">
+          <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
           <div>
-            <p className="text-label-caps text-foreground-muted mb-1">ID Usuario</p>
-            <p className="text-body-md font-semibold text-foreground">{cert.userId}</p>
-          </div>
-          <div>
-            <p className="text-label-caps text-foreground-muted mb-1">Calificacion</p>
-            <p className="text-body-md font-semibold text-foreground">{cert.score}%</p>
-          </div>
-          <div>
-            <p className="text-label-caps text-foreground-muted mb-1">Expedicion</p>
-            <p className="text-body-md font-semibold text-foreground">{formatDate(cert.issueDate)}</p>
-          </div>
-          <div>
-            <p className="text-label-caps text-foreground-muted mb-1">Vencimiento</p>
-            <p className="text-body-md font-semibold text-foreground">{formatDate(cert.expiryDate)}</p>
-          </div>
-        </div>
-
-        {/* Signature and QR */}
-        <div className="grid grid-cols-2 gap-8">
-          <div className="bg-surface-container-high rounded-lg p-6">
-            <div className="h-24 flex items-center justify-center">
-              <p className="text-3xl italic text-foreground-muted font-serif">Nexu</p>
-            </div>
-            <p className="text-body-sm text-foreground-muted text-center mt-2">
-              Director de Capacitacion
-            </p>
-          </div>
-          <div className="bg-primary rounded-lg p-4 flex flex-col items-center justify-center">
-            {/* QR Code placeholder */}
-            <div className="w-24 h-24 bg-white rounded-lg grid grid-cols-6 grid-rows-6 gap-0.5 p-2">
-              {Array.from({ length: 36 }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`${Math.random() > 0.5 ? 'bg-foreground' : 'bg-white'} rounded-sm`}
-                />
-              ))}
-            </div>
-            <p className="text-label-caps text-white/80 mt-2 uppercase tracking-wider">
-              Verificar Autenticidad
+            <p className="text-body-sm font-semibold mb-1">Vigencia</p>
+            <p className="text-body-sm opacity-90">
+              Válido un año desde la expedición. Código: {certificate.verifyCode}
             </p>
           </div>
         </div>
       </div>
+
+      <p className="text-body-sm text-foreground-muted">
+        <Link to={certificate.qrVerifyUrl} className="text-primary underline break-all">
+          {certificate.qrVerifyUrl}
+        </Link>
+      </p>
     </Card>
   )
 }
 
-function ActionsCard() {
-  return (
-    <Card padding="lg" className="sticky top-24">
-      <h3 className="text-body-md font-semibold text-foreground mb-2">Gestion de Logro</h3>
-      <p className="text-body-sm text-foreground-muted mb-6">
-        Descarga tu certificado oficial en alta resolucion o compartelo directamente en tus redes profesionales para validar tus habilidades.
-      </p>
-
-      <div className="space-y-3 mb-6">
-        <Button className="w-full justify-center gap-2">
-          <Download className="w-4 h-4" />
-          Descargar PDF
-        </Button>
-        <Button variant="outline" className="w-full justify-center gap-2">
-          <Share2 className="w-4 h-4" />
-          Compartir
-        </Button>
-      </div>
-
-      {/* Next steps */}
-      <div className="bg-primary rounded-lg p-4 text-white mb-6">
-        <div className="flex items-start gap-3">
-          <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
-          <div>
-            <p className="text-body-sm font-semibold mb-1">Proximos pasos?</p>
-            <p className="text-body-sm opacity-90">
-              Este certificado es valido por un ano. Te notificaremos 30 dias antes de su vencimiento para que puedas renovarlo.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Promo image */}
-      <div className="rounded-lg overflow-hidden relative">
-        <img
-          src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80"
-          alt="Kitchen"
-          className="w-full h-32 object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-          <p className="text-body-sm text-white font-medium">
-            Manten los estandares de higiene en tu cocina.
-          </p>
-        </div>
-      </div>
-    </Card>
-  )
+type LocationState = {
+  certificateId?: string
 }
 
 export function CertificatePage() {
   const { user } = useAuth()
-  const firstName = user?.fullName?.split(' ')[0] || 'Usuario'
+  const location = useLocation()
+  const state = location.state as LocationState | null
 
-  // Generate certificate data based on authenticated user
-  const certificate: Certificate = {
-    id: `cert-${user?.id || '001'}`,
-    code: `${user?.id?.slice(-4) || 'XXXX'}-${Date.now().toString(36).toUpperCase().slice(-4)}`,
-    userId: user?.id || '',
-    userName: user?.fullName || '',
-    userDocument: `${user?.documentType?.toUpperCase() || 'CC'}. ${user?.documentNumber || ''}`,
-    courseName: 'Buenas Practicas de Manufactura',
-    courseModule: 'Higiene Personal',
-    issueDate: new Date(),
-    expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
-    score: 92,
-    status: 'valid',
+  const [certificates, setCertificates] = useState<CertificateView[]>([])
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [downloading, setDownloading] = useState(false)
+
+  const firstName = user?.fullName?.split(' ')[0] || 'Usuario'
+  const selected =
+    certificates.find((c) => c.certificateId === selectedId) ?? certificates[0] ?? null
+
+  useEffect(() => {
+    if (!user?.id) return
+    ;(async () => {
+      setLoading(true)
+      try {
+        let list = await getUserCertificates(user.id)
+        if (state?.certificateId) {
+          const fromState = await getCertificateById(state.certificateId)
+          if (fromState && !list.some((c) => c.certificateId === fromState.certificateId)) {
+            list = [fromState, ...list]
+          }
+          setSelectedId(state.certificateId)
+        } else if (list.length > 0) {
+          setSelectedId(list[0].certificateId)
+        }
+        setCertificates(list)
+      } finally {
+        setLoading(false)
+      }
+    })()
+  }, [user?.id, state?.certificateId])
+
+  const handleDownload = async () => {
+    if (!selected) return
+    setDownloading(true)
+    try {
+      const safeName = selected.userName.replace(/\s+/g, '_').slice(0, 40)
+      await downloadCertificatePdf(
+        CERTIFICATE_DOCUMENT_ID,
+        `Nexu_Certificado_${safeName}_${selected.verifyCode}.pdf`
+      )
+    } catch (e) {
+      alert(e instanceof Error ? e.message : 'No se pudo generar el PDF.')
+    } finally {
+      setDownloading(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <AppLayout>
+        <div className="flex justify-center py-24">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        </div>
+      </AppLayout>
+    )
+  }
+
+  if (!selected) {
+    return (
+      <AppLayout>
+        <Card padding="lg" className="max-w-lg mx-auto text-center">
+          <Award className="w-12 h-12 text-foreground-muted mx-auto mb-4 opacity-50" />
+          <h1 className="text-h2 text-foreground mb-2">Aún no tienes certificados</h1>
+          <p className="text-body-md text-foreground-muted mb-6">
+            Aprueba la evaluación final de una lección (mínimo 70 %) para recibir tu
+            certificado oficial.
+          </p>
+          <Link to="/ruta">
+            <Button>Ir a la ruta de aprendizaje</Button>
+          </Link>
+        </Card>
+      </AppLayout>
+    )
   }
 
   return (
@@ -166,16 +180,39 @@ export function CertificatePage() {
       <div className="mb-8">
         <p className="text-primary font-semibold mb-1">Felicitaciones, {firstName}!</p>
         <h1 className="text-h2 text-foreground">
-          Has completado con exito tu certificacion de seguridad alimentaria.
+          Tu certificado de seguridad alimentaria está listo.
         </h1>
       </div>
 
+      {certificates.length > 1 && (
+        <div className="flex flex-wrap gap-2 mb-6">
+          {certificates.map((c) => (
+            <button
+              key={c.certificateId}
+              type="button"
+              onClick={() => setSelectedId(c.certificateId)}
+              className={`px-4 py-2 rounded-lg text-body-sm font-medium border transition-colors ${
+                c.certificateId === selected.certificateId
+                  ? 'border-primary bg-primary/10 text-primary'
+                  : 'border-outline-variant text-foreground-muted hover:border-primary/50'
+              }`}
+            >
+              {c.lessonTitle}
+            </button>
+          ))}
+        </div>
+      )}
+
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          <CertificatePreview certificate={certificate} />
+          <CertificateDocument certificate={selected} />
         </div>
         <div className="lg:col-span-1">
-          <ActionsCard />
+          <ActionsCard
+            certificate={selected}
+            onDownload={handleDownload}
+            downloading={downloading}
+          />
         </div>
       </div>
     </AppLayout>

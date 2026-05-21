@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Bell, User, ArrowLeft, LogOut } from 'lucide-react'
+import { User, ArrowLeft, LogOut } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/contexts/AuthContext'
 
@@ -33,8 +33,16 @@ export function Header({ showBack, onBack, title, className }: HeaderProps) {
                 <ArrowLeft className="w-5 h-5 text-foreground" />
               </button>
             )}
-            <Link to="/ruta" className="flex items-center gap-2">
-              <span className="text-h3 font-bold text-primary">Nexu</span>
+            <Link
+              to="/ruta"
+              className="flex items-center gap-3 rounded-lg transition-opacity hover:opacity-90"
+            >
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary shadow-sm">
+                <span className="text-xl font-bold text-white">N</span>
+              </div>
+              <span className="text-2xl font-bold tracking-tight text-primary sm:text-3xl">
+                Nexu
+              </span>
             </Link>
             {title && (
               <>
@@ -45,10 +53,6 @@ export function Header({ showBack, onBack, title, className }: HeaderProps) {
           </div>
           
           <div className="flex items-center gap-3">
-            <button className="p-2 rounded-lg hover:bg-surface-container-high transition-colors">
-              <Bell className="w-5 h-5 text-foreground-muted" />
-            </button>
-            
             {user && (
               <div className="flex items-center gap-2 pl-2 border-l border-outline-variant/30">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">

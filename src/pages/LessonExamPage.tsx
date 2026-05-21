@@ -8,6 +8,7 @@ import {
   fetchLessonBlocks,
   fetchExamQuestions,
 } from '@/services/lessonService'
+import { issueCertificate } from '@/services/certificateService'
 import { saveExamResult } from '@/services/progressService'
 import type { ExamBlockContent, LessonQuestion } from '@/types/lesson'
 import { cn } from '@/lib/utils'
@@ -81,7 +82,17 @@ export function LessonExamPage() {
     await saveExamResult(user.id, lessonId, score, examConfig.passingPercent)
 
     if (score >= examConfig.passingPercent) {
-      navigate('/certificado', { state: { lessonId, score, lessonTitle } })
+      const cert = await issueCertificate({
+        userId: user.id,
+        lessonId,
+        lessonTitle,
+        finalScore: score,
+        userName: user.fullName,
+        userDocument: `${user.documentType?.toUpperCase() ?? 'CC'}. ${user.documentNumber}`,
+        documentType: user.documentType ?? 'cc',
+        documentNumber: user.documentNumber,
+      })
+      navigate('/certificado', { state: { certificateId: cert.certificateId } })
     } else {
       navigate(`/leccion/${lessonId}`, {
         state: { examFailed: true, score },

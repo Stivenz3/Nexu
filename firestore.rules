@@ -21,6 +21,22 @@ service cloud.firestore {
       }
     }
 
+    match /certificates/{certificateId} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.certificateId == certificateId
+        && request.resource.data.isValid == true;
+      allow update, delete: if false;
+    }
+
+    match /certificatePublic/{verifyCode} {
+      allow read: if true;
+      allow create: if request.auth != null
+        && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if false;
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }

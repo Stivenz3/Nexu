@@ -26,11 +26,15 @@ export function AppLayout({
       
       <div className="flex">
         {showSidebar && <Sidebar />}
-        
-        <main className={cn('flex-1 p-lg', className)}>
-          <div className="max-w-container mx-auto">
-            {children}
-          </div>
+
+        <main
+          className={cn(
+            'min-h-[calc(100vh-4rem)] flex-1 overflow-y-auto p-lg transition-[margin-left] duration-200 ease-in-out',
+            showSidebar && 'ml-[var(--sidebar-width,15rem)]',
+            className
+          )}
+        >
+          <div className="max-w-container mx-auto">{children}</div>
         </main>
       </div>
     </div>
