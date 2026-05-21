@@ -31,6 +31,34 @@ Proyecto Firebase compartido: **`nexu-156ce`** (misma base en local, producción
 
 ---
 
+## 2.1 Front y back — qué es cada cosa
+
+| | **Front (cliente)** | **Back (datos y reglas)** |
+|---|---------------------|---------------------------|
+| **Qué es** | La app que ves en el navegador (React + Vite) | Firebase + un endpoint pequeño en Vercel |
+| **Dónde** | Carpeta `src/` → se publica en **Vercel** | Proyecto **`nexu-156ce`** en la nube de Google |
+| **Ejemplos** | Pantallas, botones, PDF del certificado, QR | Login, Firestore, reglas de seguridad |
+| **Quién lo toca** | UI, flujo de lección, minijuego | Reglas, seed, consola Firebase |
+
+**Front** = camarero: muestra lecciones, guarda progreso *llamando* a Firebase, genera PDF en el navegador.
+
+**Back** = cocina y almacén:
+- **Firebase Auth** — usuarios y sesión
+- **Firestore** — lecciones, progreso, certificados (`lessons`, `users/.../lessonProgress`, `certificates`, …)
+- **`firestore.rules`** — quién puede leer/escribir qué
+- **`api/verify-recaptcha.ts`** — valida reCAPTCHA con clave secreta (no va en el front)
+
+**Scripts de seed** (`npm run seed:lesson1`, `seed:lesson2`) no son la app: son herramientas del equipo para **cargar contenido** en Firestore desde la PC.
+
+**No hay** un servidor Node grande tipo “API con 50 rutas”. La app habla con Firebase desde el navegador; las reglas protegen los datos.
+
+```
+Alumno → Front (React) → Firebase Auth + Firestore
+Equipo → seed en terminal → Firestore (contenido de lecciones)
+```
+
+---
+
 ## 3. Arquitectura en una vista
 
 ```mermaid
@@ -91,12 +119,11 @@ flowchart TB
 
 | Prioridad | Tarea | Archivos / notas | Depende de |
 |-----------|-------|------------------|------------|
-| Alta | Lección 2: JSON + seed | `firestore-seed/lesson_02/`, script seed (ver §5 abajo) | PDF técnico L2 |
+| Alta | Lección 2: JSON + seed | `firestore-seed/lesson_02/` (plantilla lista), `npm run seed:lesson2` | PDF técnico L2 |
 | Alta | Lección 3–5 | Igual que L2 | Contenido |
 | Alta | Desbloqueo lección N+1 en ruta | `LearningPathPage.tsx` — ya hay lógica parcial por `passed` | Lección anterior en Firestore |
 | Media | Minijuego 3D cocina | `GameBlockView.tsx` o escena R3F | Diseño escena |
 | Media | Videos YouTube reales | `blocks.json` → `youtubeUrl`; opcional % visto | Links del equipo |
-| Media | Progreso **dinámico** por lección | `progressService.ts` — hoy `INITIAL_BLOCKS_PROGRESS` es fijo L1 | Lección 2+ con distinto nº de bloques |
 | Media | Bloquear menú “Evaluación” hasta completar juego | `Sidebar.tsx` + leer progreso | Opcional UX |
 | Baja | Cloud Function emisión certificado | `functions/` (no existe aún) | Seguridad |
 | Baja | PDF en Firebase Storage | `certificateService` + Storage rules | Infra |
@@ -161,13 +188,12 @@ Actualicen la tabla en este README cuando asignen nombres reales.
 
 ## 9. Seed de lecciones 2+ (importante)
 
-Hoy solo existe:
-
 ```powershell
-npm run seed:lesson1
+npm run seed:lesson1   # lesson_01
+npm run seed:lesson2   # lesson_02 (cuando blocks.json tenga contenido)
 ```
 
-Para lección 2 el equipo debe **duplicar y adaptar** `scripts/seed-lesson1.mjs` → por ejemplo `seed-lesson2.mjs` y script `npm run seed:lesson2`, apuntando a `firestore-seed/lesson_02/`. Detalle en [firestore-seed/README.md](../firestore-seed/README.md).
+Script único: `scripts/seed-lesson.mjs` + carpeta `firestore-seed/lesson_XX/`. Detalle en [firestore-seed/README.md](../firestore-seed/README.md).
 
 **No ejecuten seed de lección 1** si solo quieren probar front con datos ya en la nube.
 
@@ -187,7 +213,7 @@ Requisitos para el dev de lecciones:
 
 1. Que exista la lección en Firestore (`isActive: true`, `order` correcto).
 2. Que el examen use la misma ruta `/leccion/{lessonId}/evaluacion`.
-3. Opcional: actualizar `Sidebar` si el enlace a evaluación deja de ser fijo a L1.
+3. El menú **Evaluación** ya apunta a la lección en curso o a la última desbloqueada (`Sidebar` + `resolveEvalLessonId`).
 
 Ver [CERTIFICADOS.md §9](./CERTIFICADOS.md#9-cuando-agreguen-lección-2-3).
 

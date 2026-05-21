@@ -1,23 +1,62 @@
 import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore'
 import { db } from '@/firebase/config'
-import type { ExamBlockProgress, LessonBlock, LessonProgress } from '@/types/lesson'
+import {
+  fetchActiveLessons,
+  fetchLessonBlocks,
+  getTheoryQuestionIds,
+} from '@/services/lessonService'
+import type {
+  ExamBlockProgress,
+  LessonBlock,
+  LessonProgress,
+  TheoryBlockContent,
+  BlockProgressEntry,
+} from '@/types/lesson'
 
-const INITIAL_BLOCKS_PROGRESS = {
-  b01_video: { completed: false, videoWatched: false, watchedPct: 0 },
-  b02_modulo_a: { completed: false, questionAnswered: false, answeredCorrect: false },
-  b03_modulo_b: { completed: false, questionAnswered: false, answeredCorrect: false },
-  b04_modulo_c: { completed: false, questionsAnswered: [false, false, false] },
-  b05_modulo_d: { completed: false, questionsAnswered: [false, false] },
-  b06_modulo_e: { completed: false, questionAnswered: false, answeredCorrect: false },
-  b07_game: {
-    completed: false,
-    gameScore: 0,
-    errorsFound: 0,
-    hintsUsed: 0,
-    timeSpentSec: 0,
-  },
-  b08_exam: { completed: false, lastScore: 0, attempts: 0, passed: false },
-} as LessonProgress['blocksProgress']
+export function createInitialBlockProgress(block: LessonBlock): BlockProgressEntry {
+  switch (block.type) {
+    case 'video':
+      return { completed: false, videoWatched: false, watchedPct: 0 }
+    case 'theory': {
+      const content = block.content as TheoryBlockContent
+      const questionIds = getTheoryQuestionIds(content)
+      if (questionIds.length > 1) {
+        return {
+          completed: false,
+          questionsAnswered: questionIds.map(() => false),
+        }
+      }
+      return {
+        completed: false,
+        questionAnswered: false,
+        answeredCorrect: false,
+      }
+    }
+    case 'game':
+      return {
+        completed: false,
+        gameScore: 0,
+        errorsFound: 0,
+        hintsUsed: 0,
+        timeSpentSec: 0,
+      }
+    case 'exam':
+      return { completed: false, lastScore: 0, attempts: 0, passed: false }
+    default:
+      return { completed: false }
+  }
+}
+
+export function buildBlocksProgress(blocks: LessonBlock[]): LessonProgress['blocksProgress'] {
+  return Object.fromEntries(
+    blocks.map((block) => [block.blockId, createInitialBlockProgress(block)])
+  )
+}
+
+export async function getExamBlockId(lessonId: string, blocks?: LessonBlock[]): Promise<string | null> {
+  const list = blocks ?? (await fetchLessonBlocks(lessonId))
+  return list.find((b) => b.type === 'exam')?.blockId ?? null
+}
 
 export async function fetchLessonProgress(
   userId: string,
@@ -29,10 +68,16 @@ export async function fetchLessonProgress(
 
 export async function ensureLessonProgress(
   userId: string,
-  lessonId: string
+  lessonId: string,
+  blocks?: LessonBlock[]
 ): Promise<LessonProgress> {
   const existing = await fetchLessonProgress(userId, lessonId)
   if (existing) return existing
+
+  const blockList = blocks ?? (await fetchLessonBlocks(lessonId))
+  if (blockList.length === 0) {
+    throw new Error(`La lección ${lessonId} no tiene bloques en Firestore.`)
+  }
 
   const progress: LessonProgress = {
     lessonId,
@@ -41,7 +86,7 @@ export async function ensureLessonProgress(
     completedAt: null,
     lastBlockCompleted: '',
     totalTimeSpentSec: 0,
-    blocksProgress: { ...INITIAL_BLOCKS_PROGRESS },
+    blocksProgress: buildBlocksProgress(blockList),
     evalAttempts: [],
     bestEvalScore: 0,
   }
@@ -92,12 +137,18 @@ export async function saveExamResult(
   userId: string,
   lessonId: string,
   score: number,
-  passingPercent: number
+  passingPercent: number,
+  examBlockId?: string
 ) {
+  const examId = examBlockId ?? (await getExamBlockId(lessonId))
+  if (!examId) {
+    throw new Error(`No hay bloque de examen en la lección ${lessonId}.`)
+  }
+
   const ref = doc(db, 'users', userId, 'lessonProgress', lessonId)
   const snap = await getDoc(ref)
   const current = snap.data() as LessonProgress
-  const exam = (current.blocksProgress.b08_exam ?? {}) as ExamBlockProgress
+  const exam = (current.blocksProgress[examId] ?? {}) as ExamBlockProgress
   const passed = score >= passingPercent
   const attempts = (exam?.attempts ?? 0) + 1
   const bestEvalScore = Math.max(current.bestEvalScore ?? 0, score)
@@ -107,13 +158,13 @@ export async function saveExamResult(
     evalAttempts: [...(current.evalAttempts ?? []), score],
     status: passed ? 'passed' : 'failed',
     completedAt: passed ? serverTimestamp() : current.completedAt,
-    'blocksProgress.b08_exam': {
+    [`blocksProgress.${examId}`]: {
       completed: passed,
       lastScore: score,
       attempts,
       passed,
     },
-    lastBlockCompleted: passed ? 'b08_exam' : current.lastBlockCompleted,
+    lastBlockCompleted: passed ? examId : current.lastBlockCompleted,
   })
 }
 
@@ -127,4 +178,21 @@ export function isBlockUnlocked(
   const prevBlock = blocks[blockIndex - 1]
   const prevProgress = progress.blocksProgress[prevBlock.blockId]
   return Boolean(prevProgress?.completed)
+}
+
+/** Última lección desbloqueada en la ruta (misma lógica que LearningPathPage). */
+export async function resolveEvalLessonId(userId: string): Promise<string> {
+  const lessons = await fetchActiveLessons()
+  if (lessons.length === 0) return 'lesson_01_higiene_personal'
+
+  let targetId = lessons[0].lessonId
+
+  for (let i = 0; i < lessons.length; i++) {
+    const prevPassed =
+      i === 0 || (await fetchLessonProgress(userId, lessons[i - 1].lessonId))?.status === 'passed'
+    if (!prevPassed) break
+    targetId = lessons[i].lessonId
+  }
+
+  return targetId
 }

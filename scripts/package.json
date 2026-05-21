@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "seed": "node seed-lesson1.mjs"
+    "seed": "node seed-lesson.mjs 01",
+    "seed:01": "node seed-lesson.mjs 01",
+    "seed:02": "node seed-lesson.mjs 02"
   },
   "dependencies": {
     "firebase-admin": "^13.0.2"

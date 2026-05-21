@@ -20,6 +20,7 @@ export function LessonExamPage() {
 
   const [questions, setQuestions] = useState<LessonQuestion[]>([])
   const [examConfig, setExamConfig] = useState<ExamBlockContent | null>(null)
+  const [examBlockId, setExamBlockId] = useState<string | null>(null)
   const [lessonTitle, setLessonTitle] = useState('')
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
@@ -37,7 +38,10 @@ export function LessonExamPage() {
       ])
       const examBlock = blocks.find((b) => b.type === 'exam')
       if (lesson) setLessonTitle(lesson.title)
-      if (examBlock) setExamConfig(examBlock.content as ExamBlockContent)
+      if (examBlock) {
+        setExamBlockId(examBlock.blockId)
+        setExamConfig(examBlock.content as ExamBlockContent)
+      }
       setQuestions(examQs)
       setLoading(false)
     })()
@@ -79,7 +83,13 @@ export function LessonExamPage() {
       if (ans === ok) correct++
     }
     const score = Math.round((correct / totalQuestions) * 100)
-    await saveExamResult(user.id, lessonId, score, examConfig.passingPercent)
+    await saveExamResult(
+      user.id,
+      lessonId,
+      score,
+      examConfig.passingPercent,
+      examBlockId ?? undefined
+    )
 
     if (score >= examConfig.passingPercent) {
       const cert = await issueCertificate({

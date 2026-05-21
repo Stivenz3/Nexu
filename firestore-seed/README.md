@@ -38,11 +38,12 @@ npm run seed:lesson1
 
 ## Lección 2+ — qué debe hacer el equipo
 
-1. Crear `firestore-seed/lesson_02/` con los tres JSON.
-2. Copiar `scripts/seed-lesson1.mjs` → `scripts/seed-lesson2.mjs` (cambiar `LESSON_ID` y carpeta).
-3. Añadir en `package.json`: `"seed:lesson2": "npm install --prefix scripts && node scripts/seed-lesson2.mjs"` (o script unificado con argumento).
-4. Coordinar en el chat antes de ejecutar seed en `nexu-156ce`.
-5. Completar checklist en [DESARROLLO §12](../docs/DESARROLLO_LECCIONES.md#12-checklist--entregar-una-lección-nueva-copiar-en-pr).
+1. Rellenar `firestore-seed/lesson_02/` (plantilla ya creada; copiar estructura de `lesson_01/`).
+2. Poner `isActive: true` en `lesson.json` cuando esté listo.
+3. Coordinar en el chat y ejecutar: `npm run seed:lesson2` (script `scripts/seed-lesson.mjs 02`).
+4. Completar checklist en [DESARROLLO §12](../docs/DESARROLLO_LECCIONES.md#12-checklist--entregar-una-lección-nueva-copiar-en-pr).
+
+El seed **rechaza** `blocks.json` vacío.
 
 ---
 

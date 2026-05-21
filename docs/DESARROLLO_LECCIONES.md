@@ -129,28 +129,24 @@ Sigue la secuencia de la **sección 7** (comandos de consola). Resumen:
 |---------|-----------|
 | `src/types/lesson.ts` | Tipos ya sirven; solo ajusta si hay campos nuevos |
 | `src/services/lessonService.ts` | Sin cambios si la estructura es igual |
-| `src/services/progressService.ts` | **Ver §4.1** — hoy el progreso inicial es fijo para L1 |
+| `src/services/progressService.ts` | Progreso inicial **dinámico** desde bloques Firestore (§4.1) |
 | `LearningPathPage` | Muestra lección si `isActive: true`; desbloqueo: lección anterior `passed` |
 | Bloques UI | `VideoBlockView`, `TheoryBlockView`, `GameBlockView`, examen — reutilizables |
-| `LessonExamPage` | Ya emite certificado al aprobar; pasar `lessonId` y `lessonTitle` correctos |
-| `Sidebar.tsx` | Enlace evaluación hoy apunta a L1; generalizar a lección en curso (pendiente UX) |
+| `LessonExamPage` | Ya emite certificado al aprobar; `lessonId` y bloque examen por ruta |
+| `Sidebar.tsx` | Evaluación → lección en pantalla o última desbloqueada |
 
 ### Paso D — Certificado (automático)
 
 Si el alumno aprueba el examen final, **no hace falta código extra en el módulo de certificados**. `LessonExamPage` llama `issueCertificate()`. Ver [CERTIFICADOS.md](./CERTIFICADOS.md).
 
-### 4.1 Progreso del usuario — limitación actual (lección 2+)
+### 4.1 Progreso del usuario (dinámico)
 
-En `src/services/progressService.ts`, `INITIAL_BLOCKS_PROGRESS` está **hardcodeado** con los `blockId` de la lección 1 (`b01_video` … `b08_exam`).
+`ensureLessonProgress(userId, lessonId, blocks?)` construye `blocksProgress` con `buildBlocksProgress()` según el **tipo** de cada bloque en Firestore (`video`, `theory`, `game`, `exam`).
 
-**Si la lección 2 usa los mismos 8 bloques con los mismos IDs:** puede funcionar sin cambios (no recomendado: mezcla progreso entre lecciones).
+- Teoría con varias preguntas: array `questionsAnswered` según `questionIds` del bloque.
+- Examen final: `saveExamResult` localiza el bloque `type === 'exam'` (no asume `b08_exam`).
 
-**Si la lección 2 tiene otros `blockId` o distinto número de bloques:** el equipo debe:
-
-1. Refactorizar `ensureLessonProgress` para construir `blocksProgress` leyendo los bloques de Firestore de esa `lessonId`, **o**
-2. Mantener un mapa por `lessonId` → plantilla de progreso (rápido pero manual).
-
-Documentar en el PR qué opción eligieron. Esto es **tarea obligatoria** antes de dar por buena la lección 2 en producción.
+Alumnos que ya tenían progreso de L1 **no se migran**; se sigue usando su documento existente. Solo usuarios **nuevos** en una lección reciben la plantilla generada desde sus bloques.
 
 ### Paso E — Probar en local
 
@@ -434,7 +430,8 @@ La app **nunca** ejecuta el seed; solo **lee** `lessons`, `blocks` y `questions`
 |---------|-----|
 | `npm run dev` | App local |
 | `npm run build` | Compilar (igual que Vercel) |
-| `npm run seed:lesson1` | Poblar lección 1 en Firestore (ver sección 7) |
+| `npm run seed:lesson1` | Poblar `lesson_01` (ver sección 7) |
+| `npm run seed:lesson2` | Poblar `lesson_02` cuando el JSON esté completo |
 | `npm run firebase:deploy:rules` | Publicar reglas e índices |
 
 Vercel **no** ejecuta el seed; solo despliega el frontend. Los datos viven en Firebase `nexu-156ce` y los comparte todo el equipo.
@@ -489,7 +486,7 @@ Archivos de seed: `firestore-seed/lesson_01/`.
 - [ ] Carpeta `firestore-seed/lesson_XX/` con `lesson.json`, `blocks.json`, `questions.json` validados contra el PDF.
 - [ ] Script de seed creado o parametrizado (`npm run seed:lessonX`) y ejecutado en `nexu-156ce` (coordinado con el equipo).
 - [ ] `lesson.isActive: true` y `order` coherente con desbloqueo en `/ruta`.
-- [ ] Progreso inicial resuelto para esa lección (§4.1).
+- [ ] Progreso: probar con usuario nuevo en esa lección (§4.1 automático).
 - [ ] Prueba manual: video → teoría → preguntas → juego → examen → certificado.
 - [ ] Reglas Firestore desplegadas si hubo cambios: `npm run firebase:deploy:rules`.
 - [ ] Sin commitear `.env` ni `dist/`.

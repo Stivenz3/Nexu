@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "firebase:deploy:rules": "npx firebase-tools deploy --only firestore:rules,firestore:indexes",
-    "seed:lesson1": "npm install --prefix scripts && npm run seed --prefix scripts"
+    "seed:lesson1": "npm install --prefix scripts && node scripts/seed-lesson.mjs 01",
+    "seed:lesson2": "npm install --prefix scripts && node scripts/seed-lesson.mjs 02"
   },
   "dependencies": {
     "clsx": "^2.1.0",

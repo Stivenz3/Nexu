@@ -52,11 +52,11 @@ export function LessonFlowPage() {
     setLoading(true)
     setError(null)
     try {
-      const [lessonData, blocksData, progressData] = await Promise.all([
+      const [lessonData, blocksData] = await Promise.all([
         fetchLesson(lessonId),
         fetchLessonBlocks(lessonId),
-        ensureLessonProgress(user.id, lessonId),
       ])
+      const progressData = await ensureLessonProgress(user.id, lessonId, blocksData)
       if (!lessonData) {
         setError('Lección no encontrada.')
         return

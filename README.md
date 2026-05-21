@@ -36,6 +36,7 @@ La lección 1 **ya está en Firebase**; no hace falta seed para probar como alum
 | `npm run dev` | App en local |
 | `npm run build` | Build (igual que Vercel) |
 | `npm run seed:lesson1` | Subir/reemplazar lección 1 en Firestore |
+| `npm run seed:lesson2` | Subir lección 2 (cuando `lesson_02/` tenga bloques) |
 | `npm run firebase:deploy:rules` | Publicar reglas e índices Firestore |
 
 Vercel usa **pnpm**; tras cambiar dependencias: `pnpm install --lockfile-only` y commit de `pnpm-lock.yaml`.
